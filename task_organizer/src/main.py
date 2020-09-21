@@ -10,7 +10,7 @@
 """
 
 import signal
-from src.ui.qt.task_organizer_qt import TaskOrganizerQt
+from task_organizer.src.ui.qt.task_organizer_qt import TaskOrganizerQt
 
 
 def exit_app(sig=None, frame=None):

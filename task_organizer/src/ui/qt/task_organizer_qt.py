@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QApplication
 
-from src.ui.qt.view.main_menu_ui import MainMenuUi
+from task_organizer.src.ui.qt.view.main_menu_ui import MainMenuUi
 
 
 class TaskOrganizerQt:

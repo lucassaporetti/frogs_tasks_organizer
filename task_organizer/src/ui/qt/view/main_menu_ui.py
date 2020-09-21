@@ -1,7 +1,6 @@
 from PyQt5 import uic
 from PyQt5.QtCore import QDateTime
-
-from src.ui.qt.view.qt_view import QtView
+from task_organizer.src.ui.qt.view.qt_view import QtView
 
 
 class MainMenuUi(QtView):

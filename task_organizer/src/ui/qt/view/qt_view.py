@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from PyQt5.QtWidgets import QWidget
-from src.core.tools.qt_finder import QtFinder
+from task_organizer.src.core.tools.qt_finder import QtFinder
 
 
 class QtView(ABC):
