@@ -1,7 +1,7 @@
 from abc import ABC
 from typing import Type, Optional
 from PyQt5.QtCore import QObject
-from PyQt5.QtWidgets import QWidget, QLineEdit, QDialogButtonBox, QListWidget, QCalendarWidget, QTimeEdit
+from PyQt5.QtWidgets import QWidget, QLineEdit, QListWidget, QCalendarWidget, QTimeEdit, QToolButton
 
 
 class QtFinder(ABC):
@@ -22,8 +22,8 @@ class QtFinder(ABC):
     def find_time_edit(self, name: str) -> Optional[QTimeEdit]:
         return QtFinder.find_widget(self.window, QTimeEdit, name)
 
-    def find_button_box(self, name: str) -> Optional[QDialogButtonBox]:
-        return QtFinder.find_widget(self.window, QDialogButtonBox, name)
+    def find_button(self, name: str) -> Optional[QToolButton]:
+        return QtFinder.find_widget(self.window, QToolButton, name)
 
     def find_list_widget(self, name: str) -> Optional[QListWidget]:
         return QtFinder.find_widget(self.window, QListWidget, name)

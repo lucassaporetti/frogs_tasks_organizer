@@ -1,5 +1,5 @@
 from PyQt5 import uic
-from PyQt5.QtCore import QDateTime, QTime
+from PyQt5.QtCore import QTime
 from src.ui.qt.view.qt_view import QtView
 
 
@@ -13,7 +13,8 @@ class MainMenuUi(QtView):
         self.lineEdit = self.qt.find_line_edit('lineEdit')
         self.dateBox = self.qt.find_calendar_widget('calendarWidget')
         self.timeEdit = self.qt.find_time_edit('timeEdit')
-        self.buttonBox = self.qt.find_button_box('buttonBox')
+        self.buttonSave = self.qt.find_button('save_button')
+        self.buttonReset = self.qt.find_button('reset_button')
         self.taskList = self.qt.find_list_widget('taskList')
         self.today_date = None
         self.taskItems = []
@@ -22,7 +23,8 @@ class MainMenuUi(QtView):
     def setup_ui(self):
         self.calendar_settings()
         self.time_settings()
-        self.buttonBox.clicked.connect(self.button_box_clicked)
+        self.buttonSave.clicked.connect(self.button_save_clicked)
+        self.buttonReset.clicked.connect(self.button_reset_clicked)
 
     def show(self):
         self.window.show()
@@ -36,16 +38,16 @@ class MainMenuUi(QtView):
         time_now = QTime.currentTime()
         self.timeEdit.setTime(time_now)
 
-    def button_box_clicked(self):
-        for button in self.buttonBox.buttons():
-            if button.text() == 'Reset':
-                self.dateBox.setSelectedDate(self.today_date)
-                self.time_settings()
-                self.lineEdit.setText('')
-                self.window.repaint()
-            else:
-                selected_date = self.dateBox.selectedDate()
-                str_selected_date = selected_date.toString('yyyy/MM/dd')
-                selected_time = self.timeEdit.text()
-                self.taskItems.append(f'{self.lineEdit.text()} - {str_selected_date} - {selected_time}')
-                print(self.taskItems)
+    def button_save_clicked(self):
+        selected_date = self.dateBox.selectedDate()
+        str_selected_date = selected_date.toString('yyyy/MM/dd')
+        selected_time = self.timeEdit.text()
+        self.taskItems.append(f'{self.lineEdit.text()} - {str_selected_date} - {selected_time}')
+        self.button_reset_clicked()
+        print(self.taskItems)
+
+    def button_reset_clicked(self):
+        self.dateBox.setSelectedDate(self.today_date)
+        self.time_settings()
+        self.lineEdit.setText('')
+        self.window.repaint()
