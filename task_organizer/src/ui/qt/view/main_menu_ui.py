@@ -43,7 +43,8 @@ class MainMenuUi(QtView):
                 self.time_settings()
                 self.lineEdit.setText('')
                 self.window.repaint()
-            elif button.text() == 'Save':
-                date_time = self.dateBox.dateTime().strftime('%Y, %m, %d')
-                self.taskItems.append(f'{self.lineEdit.text()} - {date_time}')
+            else:
+                selected_date = self.dateBox.selectedDate()
+                selected_time = self.timeEdit.text()
+                self.taskItems.append(f'{self.lineEdit.text()} - {selected_date} - {selected_time}')
                 print(self.taskItems)
