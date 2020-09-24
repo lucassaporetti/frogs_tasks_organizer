@@ -45,6 +45,7 @@ class MainMenuUi(QtView):
                 self.window.repaint()
             else:
                 selected_date = self.dateBox.selectedDate()
+                str_selected_date = selected_date.toString('yyyy/MM/dd')
                 selected_time = self.timeEdit.text()
-                self.taskItems.append(f'{self.lineEdit.text()} - {selected_date} - {selected_time}')
+                self.taskItems.append(f'{self.lineEdit.text()} - {str_selected_date} - {selected_time}')
                 print(self.taskItems)
