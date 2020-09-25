@@ -1,5 +1,10 @@
+import base64
+
 from PyQt5 import uic
 from PyQt5.QtCore import QTime
+from resources.icons_rgb import DotIcons
+from PyQt5.QtGui import QImage, QIcon, QPixmap
+
 from src.ui.qt.view.qt_view import QtView
 
 
@@ -16,6 +21,9 @@ class MainMenuUi(QtView):
         self.buttonSave = self.qt.find_button('save_button')
         self.buttonReset = self.qt.find_button('reset_button')
         self.taskList = self.qt.find_list_widget('taskList')
+        self.green_dot = DotIcons.green_dot
+        self.blue_dot = DotIcons.blue_dot
+        self.red_dot = DotIcons.red_dot
         self.today_date = None
         self.taskItems = []
         self.setup_ui()
@@ -42,8 +50,10 @@ class MainMenuUi(QtView):
         selected_date = self.dateBox.selectedDate()
         str_selected_date = selected_date.toString('yyyy/MM/dd')
         selected_time = self.timeEdit.text()
-        self.taskItems.append(f'{self.lineEdit.text()} - {str_selected_date} - {selected_time}')
+        self.taskItems.append(f'{self.blue_dot} {self.lineEdit.text()} - {str_selected_date} - {selected_time}')
+        self.taskList.addItem(self.taskItems[-1])
         self.button_reset_clicked()
+        self.icon_settings()
         print(self.taskItems)
 
     def button_reset_clicked(self):
@@ -51,3 +61,15 @@ class MainMenuUi(QtView):
         self.time_settings()
         self.lineEdit.setText('')
         self.window.repaint()
+
+    def icon_settings(self):
+        item_icon = QIcon()
+        item_image = base64.b64decode(self.blue_dot)
+        image = Image.open(io.BytesIO(bytes))
+        height, width, channel = item_image.shape
+        bytes_per_line = 3 * width
+        q_img = QImage(item_image.data, width, height,
+                       bytes_per_line, QImage.Format_RGB888).rgbSwapped()
+        item_icon.addPixmap(QPixmap(q_img),
+                            QIcon.Normal, QIcon.Off)
+        self.taskList.setIcon(item_icon)

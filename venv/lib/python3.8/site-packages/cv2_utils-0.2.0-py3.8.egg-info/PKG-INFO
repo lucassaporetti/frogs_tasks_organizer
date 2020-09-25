@@ -1,0 +1,11 @@
+Metadata-Version: 1.0
+Name: cv2-utils
+Version: 0.2.0
+Summary: Utils for cv based on OpenCV
+Home-page: https://github.com/TuYuxiao/cv2_utils
+Author: Tu Yuxiao
+Author-email: 754738085@qq.com
+License: MIT License
+Description: UNKNOWN
+Keywords: OpenCV
+Platform: any

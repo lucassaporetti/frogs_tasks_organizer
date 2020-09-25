@@ -1,0 +1,14 @@
+LICENSE
+MANIFEST.in
+README.rst
+conda-requirements.txt
+find_similar_images.py
+imagehash.py
+setup.cfg
+setup.py
+ImageHash.egg-info/PKG-INFO
+ImageHash.egg-info/SOURCES.txt
+ImageHash.egg-info/dependency_links.txt
+ImageHash.egg-info/requires.txt
+ImageHash.egg-info/top_level.txt
+tests/data/imagehash.png
