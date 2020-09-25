@@ -1,3 +1,4 @@
+import functools
 import io
 import cv2
 import numpy
@@ -5,11 +6,9 @@ import base64
 import imageio
 from PyQt5 import uic
 from PyQt5.QtCore import QTime
-from PyQt5.QtWidgets import QListView, QListWidgetItem
-
+from PyQt5.QtWidgets import QListView, QListWidgetItem, QMessageBox, QPushButton
 from resources.icons_rgb import DotIcons
 from PyQt5.QtGui import QImage, QIcon, QPixmap
-
 from src.ui.qt.view.qt_view import QtView
 
 
@@ -38,6 +37,7 @@ class MainMenuUi(QtView):
         self.time_settings()
         self.buttonSave.clicked.connect(self.button_save_clicked)
         self.buttonReset.clicked.connect(self.button_reset_clicked)
+        self.taskList.mouseDoubleClickEvent = functools.partial(self.item_click)
 
     def show(self):
         self.window.show()
@@ -68,6 +68,16 @@ class MainMenuUi(QtView):
                             QIcon.Normal, QIcon.Off)
         list_item.setIcon(item_icon)
         list_item.setText(f'{self.lineEdit.text()} - {str_selected_date} - {selected_time}')
+        message = QMessageBox()
+        message.setStyleSheet("""
+                                            background-color: rgb(50, 85, 127);
+                                            font: 75 13pt "MS Shell Dlg 2";
+                                            color: rgb(238, 238, 236); 
+                                            """)
+        message.setText('A new task has been created.')
+        message.setWindowTitle('Roll up your sleeves!')
+        message.setStandardButtons(QMessageBox.Ok)
+        message.exec_()
         self.taskList.addItem(list_item)
         self.button_reset_clicked()
         print(self.taskItems)
@@ -78,30 +88,52 @@ class MainMenuUi(QtView):
         self.lineEdit.setText('')
         self.window.repaint()
 
-    # def icon_settings(self):
-    #     self.taskList.setViewMode(QListView.ListMode)
-    #     list_item = QListWidgetItem()
-    #     item_icon = QIcon()
-    #     item_image = self.str_to_rgb(self.blue_dot)
-    #     height, width, channel = item_image.shape
-    #     bytes_per_line = 3 * width
-    #     q_img = QImage(item_image.data, width, height,
-    #                    bytes_per_line, QImage.Format_RGB888).rgbSwapped()
-    #     item_icon.addPixmap(QPixmap(q_img),
-    #                         QIcon.Normal, QIcon.Off)
-    #     list_item.setIcon(item_icon)
-    #     list_item.setText(f'{self.lineEdit.text()} - {str_selected_date} - {selected_time}')
-    #     self.taskList.addItem(list_item)
-
-        # item_icon = QIcon()
-        # item_image = self.str_to_rgb(self.blue_dot)
-        # height, width, channel = item_image.shape
-        # bytes_per_line = 3 * width
-        # q_img = QImage(item_image.data, width, height,
-        #                bytes_per_line, QImage.Format_RGB888).rgbSwapped()
-        # item_icon.addPixmap(QPixmap(q_img),
-        #                     QIcon.Normal, QIcon.Off)
-        # self.taskList.setIcon(item_icon)
+    def item_click(self, event):
+        message = QMessageBox()
+        message.setStyleSheet("""
+                                                    background-color: rgb(50, 85, 127);
+                                                    font: 75 13pt "MS Shell Dlg 2";
+                                                    color: rgb(238, 238, 236); 
+                                                    """)
+        message.setText('Choose the new status:')
+        message.setWindowTitle('Change Status')
+        blue_icon = QIcon()
+        green_icon = QIcon()
+        red_icon = QIcon()
+        blue_button_image = self.str_to_rgb(self.blue_dot)
+        height, width, channel = blue_button_image.shape
+        bytes_per_line = 3 * width
+        q_img = QImage(blue_button_image.data, width, height,
+                       bytes_per_line, QImage.Format_RGB888).rgbSwapped()
+        blue_icon.addPixmap(QPixmap(q_img),
+                            QIcon.Normal, QIcon.Off)
+        blue_dot_button = QPushButton()
+        blue_dot_button.setIcon(blue_icon)
+        blue_dot_button.setStyleSheet('background-color: rgb(255, 255, 255);')
+        green_button_image = self.str_to_rgb(self.green_dot)
+        height, width, channel = green_button_image.shape
+        bytes_per_line = 3 * width
+        q_img = QImage(green_button_image.data, width, height,
+                       bytes_per_line, QImage.Format_RGB888).rgbSwapped()
+        green_icon.addPixmap(QPixmap(q_img),
+                             QIcon.Normal, QIcon.Off)
+        green_dot_button = QPushButton()
+        green_dot_button.setIcon(green_icon)
+        green_dot_button.setStyleSheet('background-color: rgb(255, 255, 255);')
+        red_button_image = self.str_to_rgb(self.red_dot)
+        height, width, channel = red_button_image.shape
+        bytes_per_line = 3 * width
+        q_img = QImage(red_button_image.data, width, height,
+                       bytes_per_line, QImage.Format_RGB888).rgbSwapped()
+        red_icon.addPixmap(QPixmap(q_img),
+                           QIcon.Normal, QIcon.Off)
+        red_dot_button = QPushButton()
+        red_dot_button.setIcon(red_icon)
+        red_dot_button.setStyleSheet('background-color: rgb(255, 255, 255);')
+        message.addButton(red_dot_button, QMessageBox.YesRole)
+        message.addButton(blue_dot_button, QMessageBox.YesRole)
+        message.addButton(green_dot_button, QMessageBox.YesRole)
+        message.exec_()
 
     @staticmethod
     def str_to_rgb(base64_str):
