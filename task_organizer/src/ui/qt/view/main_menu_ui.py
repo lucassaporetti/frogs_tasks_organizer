@@ -1,5 +1,8 @@
+import io
+import cv2
+import numpy
 import base64
-
+import imageio
 from PyQt5 import uic
 from PyQt5.QtCore import QTime
 from resources.icons_rgb import DotIcons
@@ -64,8 +67,7 @@ class MainMenuUi(QtView):
 
     def icon_settings(self):
         item_icon = QIcon()
-        item_image = base64.b64decode(self.blue_dot)
-        image = Image.open(io.BytesIO(bytes))
+        item_image = self.str_to_rgb(self.blue_dot)
         height, width, channel = item_image.shape
         bytes_per_line = 3 * width
         q_img = QImage(item_image.data, width, height,
@@ -73,3 +75,9 @@ class MainMenuUi(QtView):
         item_icon.addPixmap(QPixmap(q_img),
                             QIcon.Normal, QIcon.Off)
         self.taskList.setIcon(item_icon)
+
+    @staticmethod
+    def str_to_rgb(base64_str):
+        image_data = base64.b64decode(base64_str)
+        image = imageio.imread(io.BytesIO(image_data))
+        return cv2.cvtColor(numpy.array(image), cv2.COLOR_BGR2RGB)
