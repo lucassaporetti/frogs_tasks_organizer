@@ -1,5 +1,8 @@
 <RCC>
   <qresource prefix="files">
+    <file>green_dot.png</file>
+    <file>red_dot.png</file>
+    <file>blue_dot.png</file>
     <file>frogs_app.png</file>
   </qresource>
 </RCC>
