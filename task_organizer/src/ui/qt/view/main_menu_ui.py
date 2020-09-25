@@ -5,6 +5,8 @@ import base64
 import imageio
 from PyQt5 import uic
 from PyQt5.QtCore import QTime
+from PyQt5.QtWidgets import QListView, QListWidgetItem
+
 from resources.icons_rgb import DotIcons
 from PyQt5.QtGui import QImage, QIcon, QPixmap
 
@@ -54,18 +56,8 @@ class MainMenuUi(QtView):
         str_selected_date = selected_date.toString('yyyy/MM/dd')
         selected_time = self.timeEdit.text()
         self.taskItems.append(f'{self.blue_dot} {self.lineEdit.text()} - {str_selected_date} - {selected_time}')
-        self.taskList.addItem(self.taskItems[-1])
-        self.button_reset_clicked()
-        self.icon_settings()
-        print(self.taskItems)
-
-    def button_reset_clicked(self):
-        self.dateBox.setSelectedDate(self.today_date)
-        self.time_settings()
-        self.lineEdit.setText('')
-        self.window.repaint()
-
-    def icon_settings(self):
+        self.taskList.setViewMode(QListView.ListMode)
+        list_item = QListWidgetItem()
         item_icon = QIcon()
         item_image = self.str_to_rgb(self.blue_dot)
         height, width, channel = item_image.shape
@@ -74,7 +66,42 @@ class MainMenuUi(QtView):
                        bytes_per_line, QImage.Format_RGB888).rgbSwapped()
         item_icon.addPixmap(QPixmap(q_img),
                             QIcon.Normal, QIcon.Off)
-        self.taskList.setIcon(item_icon)
+        list_item.setIcon(item_icon)
+        list_item.setText(f'{self.lineEdit.text()} - {str_selected_date} - {selected_time}')
+        self.taskList.addItem(list_item)
+        self.button_reset_clicked()
+        print(self.taskItems)
+
+    def button_reset_clicked(self):
+        self.dateBox.setSelectedDate(self.today_date)
+        self.time_settings()
+        self.lineEdit.setText('')
+        self.window.repaint()
+
+    # def icon_settings(self):
+    #     self.taskList.setViewMode(QListView.ListMode)
+    #     list_item = QListWidgetItem()
+    #     item_icon = QIcon()
+    #     item_image = self.str_to_rgb(self.blue_dot)
+    #     height, width, channel = item_image.shape
+    #     bytes_per_line = 3 * width
+    #     q_img = QImage(item_image.data, width, height,
+    #                    bytes_per_line, QImage.Format_RGB888).rgbSwapped()
+    #     item_icon.addPixmap(QPixmap(q_img),
+    #                         QIcon.Normal, QIcon.Off)
+    #     list_item.setIcon(item_icon)
+    #     list_item.setText(f'{self.lineEdit.text()} - {str_selected_date} - {selected_time}')
+    #     self.taskList.addItem(list_item)
+
+        # item_icon = QIcon()
+        # item_image = self.str_to_rgb(self.blue_dot)
+        # height, width, channel = item_image.shape
+        # bytes_per_line = 3 * width
+        # q_img = QImage(item_image.data, width, height,
+        #                bytes_per_line, QImage.Format_RGB888).rgbSwapped()
+        # item_icon.addPixmap(QPixmap(q_img),
+        #                     QIcon.Normal, QIcon.Off)
+        # self.taskList.setIcon(item_icon)
 
     @staticmethod
     def str_to_rgb(base64_str):
