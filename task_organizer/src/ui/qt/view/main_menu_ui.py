@@ -6,9 +6,9 @@ import base64
 import imageio
 from PyQt5 import uic
 from PyQt5.QtCore import QTime
-from PyQt5.QtWidgets import QListView, QListWidgetItem, QMessageBox, QPushButton
+from PyQt5.QtWidgets import QListView, QListWidgetItem, QMessageBox, QPushButton, QToolButton
 from resources.icons_rgb import DotIcons
-from PyQt5.QtGui import QImage, QIcon, QPixmap
+from PyQt5.QtGui import QImage, QIcon, QPixmap, QColor, QPainter
 from src.ui.qt.view.qt_view import QtView
 
 
@@ -106,30 +106,29 @@ class MainMenuUi(QtView):
         q_img = QImage(blue_button_image.data, width, height,
                        bytes_per_line, QImage.Format_RGB888).rgbSwapped()
         blue_icon.addPixmap(QPixmap(q_img),
-                            QIcon.Normal, QIcon.Off)
+                            QIcon.Normal)
         blue_dot_button = QPushButton()
         blue_dot_button.setIcon(blue_icon)
-        blue_dot_button.setStyleSheet('background-color: rgb(255, 255, 255);')
+        blue_dot_button.setStyleSheet('background-color: rgba(255, 255, 255, 0);border: 0px;')
         green_button_image = self.str_to_rgb(self.green_dot)
         height, width, channel = green_button_image.shape
         bytes_per_line = 3 * width
         q_img = QImage(green_button_image.data, width, height,
                        bytes_per_line, QImage.Format_RGB888).rgbSwapped()
         green_icon.addPixmap(QPixmap(q_img),
-                             QIcon.Normal, QIcon.Off)
+                             QIcon.Normal)
         green_dot_button = QPushButton()
         green_dot_button.setIcon(green_icon)
-        green_dot_button.setStyleSheet('background-color: rgb(255, 255, 255);')
+        green_dot_button.setStyleSheet('background-color: rgba(255, 255, 255, 0);border: 0px;')
         red_button_image = self.str_to_rgb(self.red_dot)
         height, width, channel = red_button_image.shape
         bytes_per_line = 3 * width
         q_img = QImage(red_button_image.data, width, height,
                        bytes_per_line, QImage.Format_RGB888).rgbSwapped()
-        red_icon.addPixmap(QPixmap(q_img),
-                           QIcon.Normal, QIcon.Off)
+        red_icon.addPixmap(QPixmap(q_img))
         red_dot_button = QPushButton()
         red_dot_button.setIcon(red_icon)
-        red_dot_button.setStyleSheet('background-color: rgb(255, 255, 255);')
+        red_dot_button.setStyleSheet('background-color: rgba(255, 255, 255, 0);border: 0px;')
         message.addButton(red_dot_button, QMessageBox.YesRole)
         message.addButton(blue_dot_button, QMessageBox.YesRole)
         message.addButton(green_dot_button, QMessageBox.YesRole)
