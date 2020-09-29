@@ -55,7 +55,7 @@ class MainMenuUi(QtView):
         selected_date = self.dateBox.selectedDate()
         str_selected_date = selected_date.toString('yyyy/MM/dd')
         selected_time = self.timeEdit.text()
-        self.taskItems.append(f'Doing - {self.lineEdit.text()} - {str_selected_date} - {selected_time}')
+        self.taskItems.append(f'To do - {self.lineEdit.text()} - {str_selected_date} - {selected_time}')
         self.taskList.setViewMode(QListView.ListMode)
         list_item = QListWidgetItem()
         item_icon = QIcon()
