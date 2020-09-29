@@ -20,6 +20,8 @@ class MainMenuUi(QtView):
         self.form = MainMenuUi.form()
         self.form.setupUi(self.window)
         self.lineEdit = self.qt.find_line_edit('lineEdit')
+        self.priority_box = self.qt.find_combo_box('priorityBox')
+        self.type_box = self.qt.find_combo_box('typeBox')
         self.dateBox = self.qt.find_calendar_widget('calendarWidget')
         self.timeEdit = self.qt.find_time_edit('timeEdit')
         self.buttonSave = self.qt.find_button('save_button')
@@ -55,8 +57,15 @@ class MainMenuUi(QtView):
         selected_date = self.dateBox.selectedDate()
         str_selected_date = selected_date.toString('yyyy/MM/dd')
         selected_time = self.timeEdit.text()
-        self.taskItems.append(f'To do - {self.lineEdit.text()} - {str_selected_date} - {selected_time}')
-        self.taskList.setViewMode(QListView.ListMode)
+        selected_priority_index = self.priority_box.currentIndex()
+        selected_priority_icon = self.priority_box.itemIcon(selected_priority_index)
+        selected_priority_text = self.priority_box.currentText()
+        selected_type_index = self.type_box.currentIndex()
+        selected_type_icon = self.type_box.itemIcon(selected_type_index)
+        selected_type_text = self.type_box.currentText()
+        self.taskItems.append(f'To do - {self.lineEdit.text()} - {str_selected_date} - {selected_time} - '
+                              f'{selected_type_text} - {selected_priority_text}')
+        self.taskList.setViewMode(QListView.IconMode)
         list_item = QListWidgetItem()
         item_icon = QIcon()
         item_image = self.str_to_rgb(self.blue_dot)
@@ -66,8 +75,11 @@ class MainMenuUi(QtView):
                        bytes_per_line, QImage.Format_RGB888).rgbSwapped()
         item_icon.addPixmap(QPixmap(q_img),
                             QIcon.Normal, QIcon.Off)
-        list_item.setIcon(item_icon)
-        list_item.setText(f'{self.lineEdit.text()} - {str_selected_date} - {selected_time}')
+        # list_item.setIcon(item_icon)
+        list_item.setIcon(selected_priority_icon)
+        list_item.setIcon(selected_type_icon)
+        list_item.setText(f'{self.lineEdit.text()} - {str_selected_date} - {selected_time} - {selected_type_text}'
+                          f' - {selected_priority_text}')
         message = QMessageBox()
         message.setStyleSheet("""
                                             background-color: rgb(50, 85, 127);
@@ -83,6 +95,8 @@ class MainMenuUi(QtView):
         print(self.taskItems)
 
     def button_reset_clicked(self):
+        self.priority_box.setCurrentIndex(-1)
+        self.type_box.setCurrentIndex(-1)
         self.dateBox.setSelectedDate(self.today_date)
         self.time_settings()
         self.lineEdit.setText('')

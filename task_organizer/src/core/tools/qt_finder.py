@@ -1,7 +1,8 @@
 from abc import ABC
 from typing import Type, Optional
 from PyQt5.QtCore import QObject
-from PyQt5.QtWidgets import QWidget, QLineEdit, QListWidget, QCalendarWidget, QTimeEdit, QToolButton
+from PyQt5.QtWidgets import QWidget, QLineEdit, QListWidget, \
+    QCalendarWidget, QTimeEdit, QToolButton, QComboBox
 
 
 class QtFinder(ABC):
@@ -27,3 +28,6 @@ class QtFinder(ABC):
 
     def find_list_widget(self, name: str) -> Optional[QListWidget]:
         return QtFinder.find_widget(self.window, QListWidget, name)
+
+    def find_combo_box(self, name: str) -> Optional[QComboBox]:
+        return QtFinder.find_widget(self.window, QComboBox, name)
