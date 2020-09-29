@@ -208,7 +208,7 @@ font: 75 13pt &quot;MS Shell Dlg 2&quot;;</string>
      <x>10</x>
      <y>150</y>
      <width>571</width>
-     <height>25</height>
+     <height>35</height>
     </rect>
    </property>
    <property name="maximumSize">
@@ -218,14 +218,16 @@ font: 75 13pt &quot;MS Shell Dlg 2&quot;;</string>
     </size>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(255, 255, 255);</string>
+    <string notr="true">color: rgb(0, 0, 0);
+background-color: rgb(238, 238, 236);
+font: 75 11pt &quot;MS Shell Dlg 2&quot;;</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>180</y>
+     <y>190</y>
      <width>147</width>
      <height>20</height>
     </rect>
@@ -261,7 +263,7 @@ font: 75 13pt &quot;MS Shell Dlg 2&quot;;</string>
   <widget class="QTimeEdit" name="timeEdit">
    <property name="geometry">
     <rect>
-     <x>480</x>
+     <x>490</x>
      <y>410</y>
      <width>91</width>
      <height>41</height>
@@ -283,7 +285,8 @@ font: 75 13pt &quot;MS Shell Dlg 2&quot;;</string>
     <cursorShape>PointingHandCursor</cursorShape>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(211, 215, 207);</string>
+    <string notr="true">background-color: rgb(211, 215, 207);
+font: 75 12pt &quot;MS Shell Dlg 2&quot;;</string>
    </property>
    <property name="currentSection">
     <enum>QDateTimeEdit::HourSection</enum>
@@ -308,20 +311,21 @@ font: 75 13pt &quot;MS Shell Dlg 2&quot;;</string>
   <widget class="QToolButton" name="reset_button">
    <property name="geometry">
     <rect>
-     <x>370</x>
-     <y>560</y>
-     <width>101</width>
-     <height>31</height>
+     <x>350</x>
+     <y>550</y>
+     <width>110</width>
+     <height>35</height>
     </rect>
    </property>
    <property name="cursor">
     <cursorShape>PointingHandCursor</cursorShape>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(186, 189, 182);</string>
+    <string notr="true">background-color: rgb(186, 189, 182);
+font: 75 11pt &quot;MS Shell Dlg 2&quot;;</string>
    </property>
    <property name="text">
-    <string>_Reset</string>
+    <string>Reset</string>
    </property>
    <property name="toolButtonStyle">
     <enum>Qt::ToolButtonTextOnly</enum>
@@ -330,20 +334,21 @@ font: 75 13pt &quot;MS Shell Dlg 2&quot;;</string>
   <widget class="QToolButton" name="save_button">
    <property name="geometry">
     <rect>
-     <x>480</x>
-     <y>560</y>
-     <width>101</width>
-     <height>31</height>
+     <x>470</x>
+     <y>550</y>
+     <width>110</width>
+     <height>35</height>
     </rect>
    </property>
    <property name="cursor">
     <cursorShape>PointingHandCursor</cursorShape>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(186, 189, 182);</string>
+    <string notr="true">background-color: rgb(186, 189, 182);
+font: 75 11pt &quot;MS Shell Dlg 2&quot;;</string>
    </property>
    <property name="text">
-    <string>* Save</string>
+    <string>Save</string>
    </property>
   </widget>
   <widget class="QLabel" name="done_label">
@@ -921,17 +926,29 @@ background-color: rgba(191, 64, 64, 0);</string>
   <widget class="QComboBox" name="comboBox">
    <property name="geometry">
     <rect>
-     <x>320</x>
-     <y>240</y>
-     <width>251</width>
-     <height>41</height>
+     <x>310</x>
+     <y>250</y>
+     <width>271</width>
+     <height>35</height>
     </rect>
    </property>
    <property name="cursor">
     <cursorShape>PointingHandCursor</cursorShape>
    </property>
+   <property name="mouseTracking">
+    <bool>true</bool>
+   </property>
+   <property name="tabletTracking">
+    <bool>true</bool>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::ClickFocus</enum>
+   </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(211, 215, 207);</string>
+    <string notr="true">color: rgb(0, 0, 0);
+background-color: rgb(211, 215, 207);
+selection-background-color: rgb(197, 197, 255);
+font: 75 11pt &quot;MS Shell Dlg 2&quot;;</string>
    </property>
    <property name="currentText">
     <string/>
@@ -1021,9 +1038,9 @@ background-color: rgba(191, 64, 64, 0);</string>
   <widget class="QLabel" name="newTaskLabel_2">
    <property name="geometry">
     <rect>
-     <x>320</x>
-     <y>210</y>
-     <width>91</width>
+     <x>310</x>
+     <y>220</y>
+     <width>51</width>
      <height>21</height>
     </rect>
    </property>
@@ -1038,7 +1055,7 @@ font: 75 13pt &quot;MS Shell Dlg 2&quot;;</string>
   <widget class="QLabel" name="label_8">
    <property name="geometry">
     <rect>
-     <x>330</x>
+     <x>320</x>
      <y>290</y>
      <width>171</width>
      <height>20</height>
@@ -1075,9 +1092,9 @@ font: 75 13pt &quot;MS Shell Dlg 2&quot;;</string>
   <widget class="QLabel" name="newTaskLabel_3">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>210</y>
-     <width>91</width>
+     <x>10</x>
+     <y>220</y>
+     <width>71</width>
      <height>21</height>
     </rect>
    </property>
@@ -1092,17 +1109,23 @@ font: 75 13pt &quot;MS Shell Dlg 2&quot;;</string>
   <widget class="QComboBox" name="comboBox_2">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>240</y>
-     <width>251</width>
-     <height>41</height>
+     <x>10</x>
+     <y>250</y>
+     <width>271</width>
+     <height>35</height>
     </rect>
    </property>
    <property name="cursor">
     <cursorShape>PointingHandCursor</cursorShape>
    </property>
+   <property name="focusPolicy">
+    <enum>Qt::ClickFocus</enum>
+   </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(211, 215, 207);</string>
+    <string notr="true">color: rgb(0, 0, 0);
+background-color: rgb(211, 215, 207);
+selection-background-color: rgb(197, 197, 255);
+font: 75 11pt &quot;MS Shell Dlg 2&quot;;</string>
    </property>
    <property name="currentText">
     <string/>
@@ -1156,7 +1179,7 @@ font: 75 13pt &quot;MS Shell Dlg 2&quot;;</string>
   <widget class="QLabel" name="label_9">
    <property name="geometry">
     <rect>
-     <x>30</x>
+     <x>20</x>
      <y>290</y>
      <width>241</width>
      <height>20</height>
