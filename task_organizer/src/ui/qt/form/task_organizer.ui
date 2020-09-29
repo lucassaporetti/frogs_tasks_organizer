@@ -1191,7 +1191,7 @@ font: 75 11pt &quot;MS Shell Dlg 2&quot;;</string>
     <number>0</number>
    </property>
   </widget>
-  <widget class="QTableWidget" name="tableWidget">
+  <widget class="QTableWidget" name="taskTable">
    <property name="geometry">
     <rect>
      <x>600</x>

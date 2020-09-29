@@ -26,7 +26,7 @@ class MainMenuUi(QtView):
         self.timeEdit = self.qt.find_time_edit('timeEdit')
         self.buttonSave = self.qt.find_button('save_button')
         self.buttonReset = self.qt.find_button('reset_button')
-        self.taskList = self.qt.find_list_widget('taskList')
+        self.taskList = self.qt.find_table_widget('taskTable')
         self.green_dot = DotIcons.green_dot
         self.blue_dot = DotIcons.blue_dot
         self.red_dot = DotIcons.red_dot
