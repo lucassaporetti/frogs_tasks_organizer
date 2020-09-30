@@ -2,9 +2,7 @@ import functools
 from PyQt5 import uic
 from PyQt5.QtCore import QTime, Qt
 from PyQt5.QtWidgets import QMessageBox, QTableWidgetItem
-from PyQt5.QtGui import QIcon, QCloseEvent, QCursor, QPixmap
-from PyQt5.uic.properties import QtGui, QtCore
-
+from PyQt5.QtGui import QIcon, QPixmap
 from src.ui.qt.view.qt_view import QtView
 
 
