@@ -1,13 +1,8 @@
 import functools
-import io
-import cv2
-import numpy
-import base64
-import imageio
 from PyQt5 import uic
 from PyQt5.QtCore import QTime
 from PyQt5.QtWidgets import QMessageBox, QTableWidgetItem
-from PyQt5.QtGui import QImage, QIcon, QPixmap
+from PyQt5.QtGui import QIcon
 from src.ui.qt.view.qt_view import QtView
 
 
@@ -94,6 +89,7 @@ class MainMenuUi(QtView):
         self.tasks_table.setItem(self.tasks_table.rowCount() - 1, 3, task_time)
         self.tasks_table.setItem(self.tasks_table.rowCount() - 1, 4, task_type)
         self.tasks_table.setItem(self.tasks_table.rowCount() - 1, 5, task_priority)
+        self.tasks_table.resizeColumnsToContents()
         self.button_reset_clicked()
         print(self.taskItems)
 
@@ -130,7 +126,11 @@ class MainMenuUi(QtView):
             self.tasks_table.removeRow(selected_row)
         elif message.clickedButton() == failed_status_button:
             self.tasks_table.item(selected_row, 0).setIcon(failed_icon)
+            self.tasks_table.item(selected_row, 0).setText('Failed')
         elif message.clickedButton() == todo_status_button:
             self.tasks_table.item(selected_row, 0).setIcon(todo_icon)
+            self.tasks_table.item(selected_row, 0).setText('To do')
         elif message.clickedButton() == done_status_button:
             self.tasks_table.item(selected_row, 0).setIcon(done_icon)
+            self.tasks_table.item(selected_row, 0).setText('Done')
+        self.tasks_table.resizeColumnsToContents()
