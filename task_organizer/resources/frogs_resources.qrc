@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="files">
+    <file>hands_up_icon.png</file>
     <file>yellow_dot.png</file>
     <file>done_icon.png</file>
     <file>failed_icon.png</file>

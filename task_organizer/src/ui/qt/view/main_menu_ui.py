@@ -1,8 +1,10 @@
 import functools
 from PyQt5 import uic
-from PyQt5.QtCore import QTime
+from PyQt5.QtCore import QTime, Qt
 from PyQt5.QtWidgets import QMessageBox, QTableWidgetItem
-from PyQt5.QtGui import QIcon
+from PyQt5.QtGui import QIcon, QCloseEvent, QCursor, QPixmap
+from PyQt5.uic.properties import QtGui, QtCore
+
 from src.ui.qt.view.qt_view import QtView
 
 
@@ -28,6 +30,8 @@ class MainMenuUi(QtView):
     def setup_ui(self):
         self.calendar_settings()
         self.time_settings()
+        self.priority_box.view().setCursor(Qt.PointingHandCursor)
+        self.type_box.view().setCursor(Qt.PointingHandCursor)
         self.buttonSave.clicked.connect(self.button_save_clicked)
         self.buttonReset.clicked.connect(self.button_reset_clicked)
         self.tasks_table.mouseDoubleClickEvent = functools.partial(self.item_click)
@@ -59,12 +63,15 @@ class MainMenuUi(QtView):
         message = QMessageBox()
         message.setStyleSheet("""
                                                     background-color: rgb(50, 85, 127);
-                                                    font: 75 13pt "MS Shell Dlg 2";
+                                                    font: 75 15pt "MS Shell Dlg 2";
                                                     color: rgb(238, 238, 236); 
                                                     """)
-        message.setText('A new task has been created.')
+        message.setText('Do your jumps, frog!\n\nA new task has been created.')
         message.setWindowTitle('Roll up your sleeves!')
-        message.setStandardButtons(QMessageBox.Ok)
+        ok_button = message.addButton('Ok', QMessageBox.ApplyRole)
+        ok_button.setCursor(Qt.PointingHandCursor)
+        hands_up_icon = QPixmap(":/files/hands_up_icon.png")
+        message.setIconPixmap(hands_up_icon)
         message.exec_()
         status_icon = QIcon(":/files/todo_icon.png")
         self.tasks_table.insertRow(self.tasks_table.rowCount())
@@ -113,10 +120,14 @@ class MainMenuUi(QtView):
         todo_icon = QIcon(":/files/todo_icon.png")
         done_icon = QIcon(":/files/done_icon.png")
         failed_icon = QIcon(":/files/failed_icon.png")
-        delete_button = message.addButton('Delete', QMessageBox.ActionRole)
-        failed_status_button = message.addButton('Failed', QMessageBox.ActionRole)
-        todo_status_button = message.addButton('Doing', QMessageBox.ActionRole)
-        done_status_button = message.addButton('Done', QMessageBox.ActionRole)
+        delete_button = message.addButton('Delete', QMessageBox.ApplyRole)
+        failed_status_button = message.addButton('Failed', QMessageBox.ApplyRole)
+        todo_status_button = message.addButton('To do', QMessageBox.ApplyRole)
+        done_status_button = message.addButton('Done', QMessageBox.ApplyRole)
+        delete_button.setCursor(Qt.PointingHandCursor)
+        failed_status_button.setCursor(Qt.PointingHandCursor)
+        todo_status_button.setCursor(Qt.PointingHandCursor)
+        done_status_button.setCursor(Qt.PointingHandCursor)
         failed_status_button.setIcon(failed_icon)
         todo_status_button.setIcon(todo_icon)
         done_status_button.setIcon(done_icon)
