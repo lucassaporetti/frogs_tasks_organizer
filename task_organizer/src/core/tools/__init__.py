@@ -2,4 +2,4 @@
 #
 # Package: tools
 
-__all__ = ["qt_finder"]
+__all__ = ["properties", "qt_finder"]
