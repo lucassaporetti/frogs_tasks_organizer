@@ -2,4 +2,4 @@
 #
 # Package: enum
 
-__all__ = ["repository_type"]
+__all__ = ["repository_type", "model_enum"]

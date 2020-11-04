@@ -2,4 +2,4 @@
 #
 # Package: api_restful
 
-__all__ = ["task_factory", "frogs_api_factory.py"]
+__all__ = ["task_factory", "frogs_api_factory"]
