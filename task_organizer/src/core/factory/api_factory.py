@@ -54,21 +54,17 @@ class ApiFactory(ABC):
         return self.__class__.__name__
 
     @abstractmethod
-    def count(self):
+    def get(self, columns: list = None, filters: list = None):
         pass
 
     @abstractmethod
-    def insert(self, values: dict):
+    def post(self, values: dict):
         pass
 
     @abstractmethod
-    def update(self,  values: dict = None, filters: list = None):
+    def put(self,  values: dict = None, filters: list = None):
         pass
 
     @abstractmethod
     def delete(self, filters: list = None):
-        pass
-
-    @abstractmethod
-    def select(self, columns: list = None, filters: list = None):
         pass
