@@ -2,4 +2,4 @@
 #
 # Package: core
 
-__all__ = ["enum", "factory", "repository", "service", "tools"]
+__all__ = ["config", "enum", "factory", "repository", "service", "tools"]
