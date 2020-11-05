@@ -1,4 +1,3 @@
-import sys
 import uuid
 import httplib2
 from abc import abstractmethod
@@ -26,7 +25,7 @@ class FrogsApiRepository(ApiRepository):
         try:
             self.internet_connector.request("HEAD", "/")
             self.internet_connector.close()
-            self.log.info('Internet connection established')
+            self.log.info('Internet connection: Ok')
             return True
         except httplib2.HttpLib2Error:
             self.internet_connector.close()
@@ -38,7 +37,7 @@ class FrogsApiRepository(ApiRepository):
         if self.internet_connection() is True:
             try:
                 self.api_connector.get(url=self.url)
-                self.log.info('API connection established')
+                self.log.info('API connection: Ok')
                 return True
             except requests.exceptions.RequestException:
                 self.log.error('Error: API connection failed')
@@ -55,24 +54,35 @@ class FrogsApiRepository(ApiRepository):
             api_post = self.api_connector.post(url=self.url, json=entity.__dict__)
             self.status_code = api_post.status_code
             self.reason = api_post.reason
-            self.log.info('Executing API statement: post(url={}, json={})')
+            self.log.info('HTTP response: Status Code = {}, Reason = {})')\
+                .format(self.status_code, self.reason)
+            if self.status_code == 200:
+                self.log.info('Operation result: A new task has been saved')
+                return api_post
+            else:
+                self.log.error('Error: New task may not have been saved correctly')
+                print_error('Error: New task may not have been saved correctly')
+                return api_post
+        else:
+            self.log.error('Error: Without connection to API')
+            print_error('Error: Without connection to API')
 
-    def put(self, entity: Entity):
-        update_stm = self.sql_factory.update(entity.__dict__, filters=[
-            "ENTITY_ID = '{}'".format(entity.entity_id)
-        ])
-        self.log.info('Executing SQL statement: {}'.format(update_stm))
-        self.cursor.execute(update_stm)
-        self.connector.commit()
-
-    def delete(self, entity: Entity):
-        delete_stm = self.sql_factory.delete(filters=[
-            "ENTITY_ID = '{}'".format(entity.entity_id)
-        ])
-        self.log.info('Executing SQL statement: {}'.format(delete_stm))
-        self.cursor.execute(delete_stm)
-        self.connector.commit()
-
+    # def put(self, entity: Entity):
+    #     update_stm = self.sql_factory.update(entity.__dict__, filters=[
+    #         "ENTITY_ID = '{}'".format(entity.entity_id)
+    #     ])
+    #     self.log.info('Executing SQL statement: {}'.format(update_stm))
+    #     self.cursor.execute(update_stm)
+    #     self.connector.commit()
+    #
+    # def delete(self, entity: Entity):
+    #     delete_stm = self.sql_factory.delete(filters=[
+    #         "ENTITY_ID = '{}'".format(entity.entity_id)
+    #     ])
+    #     self.log.info('Executing SQL statement: {}'.format(delete_stm))
+    #     self.cursor.execute(delete_stm)
+    #     self.connector.commit()
+    #
     # def find_all(self, filters: str = None) -> Optional[list]:
     #     if filters is not None:
     #         sql_filters = filters.upper().split(',')
@@ -89,19 +99,19 @@ class FrogsApiRepository(ApiRepository):
     #         return ret_val
     #     except ProgrammingError:
     #         return None
-
-    def find_by_id(self, entity_id: str) -> Optional[Entity]:
-        if entity_id:
-            select_stm = self.sql_factory.select(filters=[
-                "ENTITY_ID = '{}'".format(entity_id)
-            ])
-            self.log.info('Executing SQL statement: {}'.format(select_stm))
-            self.cursor.execute(select_stm)
-            result = self.cursor.fetchall()
-            return self.row_to_entity(result[0]) if len(result) > 0 else None
-        else:
-            return None
-
+    #
+    # def find_by_id(self, entity_id: str) -> Optional[Entity]:
+    #     if entity_id:
+    #         select_stm = self.sql_factory.select(filters=[
+    #             "ENTITY_ID = '{}'".format(entity_id)
+    #         ])
+    #         self.log.info('Executing SQL statement: {}'.format(select_stm))
+    #         self.cursor.execute(select_stm)
+    #         result = self.cursor.fetchall()
+    #         return self.row_to_entity(result[0]) if len(result) > 0 else None
+    #     else:
+    #         return None
+    #
     @abstractmethod
     def row_to_entity(self, row: tuple) -> Entity:
         pass
