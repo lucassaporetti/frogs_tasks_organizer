@@ -13,6 +13,7 @@ class AppConfigs(ABC):
     __app_properties = Properties(load_dir="{}/resources".format(__root_dir))
     __log.info('Successfully read {} properties'.format(__app_properties.size()))
     __repository_type = RepositoryType[__app_properties.get('persistence.repository.type').upper()]
+    __api_url = __app_properties.get('api_url')
     __log.info('App configs loaded repository_type={} root_dir={}'.format(
         __repository_type, __root_dir))
 
@@ -43,3 +44,7 @@ class AppConfigs(ABC):
     @staticmethod
     def repository_type() -> RepositoryType:
         return AppConfigs.__repository_type
+
+    @staticmethod
+    def api_url():
+        return AppConfigs.__api_url

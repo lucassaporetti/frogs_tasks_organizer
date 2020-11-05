@@ -7,19 +7,21 @@ from src.core.repository.repository import Repository
 
 class ApiRepository(Repository):
     def __init__(self, api_factory: ApiFactory):
-        super().__init__(api_factory.api_template_file)
+        super().__init__(api_factory.__str__())
         self.api_factory = api_factory
-        self.url = AppConfigs.get('url')
         self.log = log_init(AppConfigs.log_file())
-        self.response = None
         self.status_code = None
         self.reason = None
-        self.connect()
+        self.internet_connector = None
+        self.api_connector = None
+        self.api_url = None
+        self.internet_connection()
+        self.api_connection()
 
     @abstractmethod
-    def connect(self):
+    def internet_connection(self):
         pass
 
     @abstractmethod
-    def is_connected(self):
+    def api_connection(self):
         pass
