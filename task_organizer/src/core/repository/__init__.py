@@ -2,4 +2,4 @@
 #
 # Package: repository
 
-__all__ = ["api", "repository"]
+__all__ = ["api", "repository", "repository_facade"]

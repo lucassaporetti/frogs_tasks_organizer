@@ -1,5 +1,4 @@
 from PyQt5.QtWidgets import QApplication
-
 from src.ui.qt.view.main_menu_ui import MainMenuUi
 
 

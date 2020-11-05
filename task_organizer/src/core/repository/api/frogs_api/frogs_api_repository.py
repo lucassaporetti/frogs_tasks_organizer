@@ -46,7 +46,7 @@ class FrogsApiRepository(ApiRepository):
         else:
             return False
 
-    def post(self, entity: Entity):
+    def insert(self, entity: Entity):
         if self.api_connection is True:
             entity.id = entity.id if entity.id is not None else str(uuid.uuid4())
             self.log.info('Executing API statement: post(url={}, json={})')\

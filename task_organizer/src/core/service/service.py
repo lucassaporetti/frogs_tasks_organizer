@@ -1,6 +1,7 @@
 from abc import ABC
 from src.core.enum.repository_type import RepositoryType
 from src.core.enum.model_enum import Model
+from src.core.repository.repository_facade import RepositoryFacade
 from src.model.entity_model import Entity
 
 
