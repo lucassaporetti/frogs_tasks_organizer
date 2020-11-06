@@ -5,5 +5,5 @@
       <profile default="true" name="Default" enabled="true" />
     </annotationProcessing>
   </component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.7" project-jdk-type="Python SDK" />
+  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.7 (task_organizer)" project-jdk-type="Python SDK" />
 </project>
