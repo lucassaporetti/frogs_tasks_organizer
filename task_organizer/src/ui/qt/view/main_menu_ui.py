@@ -3,7 +3,9 @@ from PyQt5 import uic
 from PyQt5.QtCore import QTime, Qt
 from PyQt5.QtWidgets import QMessageBox, QTableWidgetItem
 from PyQt5.QtGui import QIcon, QPixmap
+# from src.core.service.service_facade import ServiceFacade
 from src.ui.qt.view.qt_view import QtView
+# from src.model.task_model import Task
 
 
 class MainMenuUi(QtView):
@@ -11,6 +13,7 @@ class MainMenuUi(QtView):
 
     def __init__(self):
         super().__init__(MainMenuUi.window())
+        # self.task_service = ServiceFacade.get_task_service()
         self.form = MainMenuUi.form()
         self.form.setupUi(self.window)
         self.lineEdit = self.qt.find_line_edit('lineEdit')
@@ -23,6 +26,7 @@ class MainMenuUi(QtView):
         self.tasks_table = self.qt.find_table_widget('taskTable')
         self.today_date = None
         self.taskItems = []
+        self.task = None
         self.setup_ui()
 
     def setup_ui(self):
@@ -96,6 +100,17 @@ class MainMenuUi(QtView):
         self.tasks_table.setItem(self.tasks_table.rowCount() - 1, 5, task_priority)
         self.tasks_table.resizeColumnsToContents()
         self.button_reset_clicked()
+        # self.task = self.task if self.task else Task()
+        self.task.status = "To do"
+        self.task.name = self.lineEdit.text()
+        self.task.date = str_selected_date
+        self.task.time = selected_time
+        self.task.type = selected_type_text
+        self.task.priority = selected_priority_text
+        print(self.taskItems)
+        print(self.task)
+        # self.task_service.save(self.task)
+        self.logger.info('Item saved: {}'.format(self.task))
         print(self.taskItems)
 
     def button_reset_clicked(self):

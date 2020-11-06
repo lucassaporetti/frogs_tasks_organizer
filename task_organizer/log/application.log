@@ -1,0 +1,9 @@
+2020-11-06 19:45:11,903 [MainThread] INFO  main.py::<module>(@Line:17) 
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+AppConfigs
+  |-RootDir = /home/lucassaporetti/git_repository/frogs_tasks_organizer/task_organizer/src
+  |-LogFile = /home/lucassaporetti/git_repository/frogs_tasks_organizer/task_organizer/src/../log/application.log
+  |-AppProperties:
+   \-api_url=http://localhost:8000/tasks/
+   |-persistence.repository.type=api
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= 

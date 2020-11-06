@@ -2,4 +2,4 @@
 #
 # Package: ui
 
-__all__ = ["qt"]
+__all__ = ["builder", "qt"]

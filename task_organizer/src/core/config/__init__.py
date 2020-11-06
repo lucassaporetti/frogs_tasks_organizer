@@ -1,5 +1,8 @@
 # _*_ coding: utf-8 _*_
 #
-# Package: src.core.config
+# Package: main.hspylib.core.config
 
-__all__ = ["app_configs"]
+__all__ = [
+  "app_config",
+  "properties"
+]

@@ -1,5 +1,11 @@
 # _*_ coding: utf-8 _*_
 #
-# Package: enum
+# Package: main.hspylib.core.enum
 
-__all__ = ["repository_type", "model_enum"]
+__all__ = [
+  "charset",
+  "content_type",
+  "database_type",
+  "http_code",
+  "http_method"
+]

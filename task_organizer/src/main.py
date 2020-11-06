@@ -10,7 +10,11 @@
 """
 
 import signal
+
+from core.config.app_config import AppConfigs
 from src.ui.qt.task_organizer_qt import TaskOrganizerQt
+
+AppConfigs().logger().info(AppConfigs.INSTANCE)
 
 
 def exit_app(sig=None, frame=None):
@@ -19,6 +23,14 @@ def exit_app(sig=None, frame=None):
     print('Bye.')
     print('')
     exit(sig)
+
+
+class Main:
+    def __init__(self):
+        self.configs = AppConfigs.INSTANCE
+
+    def run(self):
+        pass
 
 
 # Application entry point
