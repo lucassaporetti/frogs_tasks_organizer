@@ -3,9 +3,9 @@ from PyQt5 import uic
 from PyQt5.QtCore import QTime, Qt
 from PyQt5.QtWidgets import QMessageBox, QTableWidgetItem
 from PyQt5.QtGui import QIcon, QPixmap
-# from src.core.service.service_facade import ServiceFacade
+from src.core.crud.file.file_repository import FileRepository
 from src.ui.qt.view.qt_view import QtView
-# from src.model.task_model import Task
+from src.core.model.task_model import Task
 
 
 class MainMenuUi(QtView):
@@ -13,7 +13,8 @@ class MainMenuUi(QtView):
 
     def __init__(self):
         super().__init__(MainMenuUi.window())
-        # self.task_service = ServiceFacade.get_task_service()
+        self.task_service = FileRepository('gabirubal')
+        self.selected_task = None
         self.form = MainMenuUi.form()
         self.form.setupUi(self.window)
         self.lineEdit = self.qt.find_line_edit('lineEdit')
@@ -62,6 +63,15 @@ class MainMenuUi(QtView):
         selected_type_text = self.type_box.currentText()
         self.taskItems.append(f'To do - {self.lineEdit.text()} - {str_selected_date} - {selected_time} - '
                               f'{selected_type_text} - {selected_priority_text}')
+        self.selected_task = self.selected_task if self.selected_task else Task()
+        self.selected_task.entity_id = '123'
+        self.selected_task.status = 'To do'
+        self.selected_task.name = self.lineEdit.text()
+        self.selected_task.date = str_selected_date
+        self.selected_task.time = selected_time
+        self.selected_task.task_type = selected_type_text
+        self.selected_task.priority = selected_priority_text
+        self.task_service.insert(self.selected_task)
         message = QMessageBox()
         message.setStyleSheet("""
                                                     background-color: rgb(50, 85, 127);
@@ -100,18 +110,9 @@ class MainMenuUi(QtView):
         self.tasks_table.setItem(self.tasks_table.rowCount() - 1, 5, task_priority)
         self.tasks_table.resizeColumnsToContents()
         self.button_reset_clicked()
-        # self.task = self.task if self.task else Task()
-        self.task.status = "To do"
-        self.task.name = self.lineEdit.text()
-        self.task.date = str_selected_date
-        self.task.time = selected_time
-        self.task.type = selected_type_text
-        self.task.priority = selected_priority_text
         print(self.taskItems)
         print(self.task)
-        # self.task_service.save(self.task)
-        self.logger.info('Item saved: {}'.format(self.task))
-        print(self.taskItems)
+        # self.logger.info('Item saved: {}'.format(self.task))
 
     def button_reset_clicked(self):
         self.priority_box.setCurrentIndex(-1)

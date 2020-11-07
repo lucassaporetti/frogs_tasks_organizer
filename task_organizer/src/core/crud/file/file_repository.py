@@ -3,6 +3,7 @@ import uuid
 from abc import abstractmethod
 from typing import Optional
 
+from logging import log
 from src.core.config.app_config import AppConfigs
 from src.core.crud.file.file_storage import FileStorage
 from src.core.crud.repository import Repository
@@ -27,7 +28,7 @@ class FileRepository(Repository):
 
     def __init__(self, filename: str):
         super().__init__()
-        self.logger = AppConfigs.logger()
+        self.logger = log
         self.filename = filename
         self.file_db = self.__create_or_get()
 
@@ -42,24 +43,24 @@ class FileRepository(Repository):
             return FileRepository.__storages[self.filename]
 
     def insert(self, entity: Entity):
-        entity.uuid = entity.uuid if entity.uuid is not None else uuid.uuid4()
+        # entity.uuid = entity.uuid if entity.uuid is not None else uuid.uuid4()
         self.file_db.data.append(entity.to_dict())
         self.file_db.commit()
-        self.logger.debug("{} has been inserted !".format(entity.__class__.__name__))
+        # self.logger.debug("{} has been inserted !".format(entity.__class__.__name__))
 
     def update(self, entity: Entity):
         for index, next_entry in enumerate(self.file_db.data):
             if next_entry['uuid'] == entity.uuid:
                 self.file_db.data[index] = entity.to_dict()
                 self.file_db.commit()
-                self.logger.debug("{} has been updated !".format(entity.__class__.__name__))
+                # self.logger.debug("{} has been updated !".format(entity.__class__.__name__))
 
     def delete(self, entity: Entity):
         for index, next_entry in enumerate(self.file_db.data):
             if next_entry['uuid'] == entity.uuid:
                 self.file_db.data.remove(self.file_db.data[index])
                 self.file_db.commit()
-                self.logger.debug("{} has been deleted !".format(entity.__class__.__name__))
+                # self.logger.debug("{} has been deleted !".format(entity.__class__.__name__))
 
     def find_all(self, filters: str = None) -> Optional[list]:
         if filters is not None:
@@ -88,14 +89,14 @@ class FileRepository(Repository):
         else:
             return None
 
-    @abstractmethod
-    def dict_to_entity(self, row: dict) -> Entity:
-        pass
+    # @abstractmethod
+    # def dict_to_entity(self, row: dict) -> Entity:
+    #     pass
 
 
 class MyRepo(FileRepository):
     def __init__(self, filename: str):
         super().__init__(filename)
 
-    def dict_to_entity(self, row: dict) -> Entity:
-        return Entity(row[uuid])
+    # def dict_to_entity(self, row: dict) -> Entity:
+    #     return Entity(row[uuid])
