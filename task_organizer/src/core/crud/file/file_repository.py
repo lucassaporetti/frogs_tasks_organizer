@@ -43,7 +43,7 @@ class FileRepository(Repository):
             return FileRepository.__storages[self.filename]
 
     def insert(self, entity: Entity):
-        # entity.uuid = entity.uuid if entity.uuid is not None else uuid.uuid4()
+        entity.uuid = entity.uuid if entity.uuid is not None else uuid.uuid4()
         self.file_db.data.append(entity.to_dict())
         self.file_db.commit()
         # self.logger.debug("{} has been inserted !".format(entity.__class__.__name__))

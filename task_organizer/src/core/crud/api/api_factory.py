@@ -1,5 +1,5 @@
 from abc import abstractmethod, ABC
-from src.core.config.app_configs import AppConfigs
+from src.core.config.app_config import AppConfigs
 
 
 class ApiFactory(ABC):
@@ -47,7 +47,7 @@ class ApiFactory(ABC):
     #     return str_field_set
 
     def __init__(self):
-        self.api_url = AppConfigs.api_url()
+        self.api_url = 'http://localhost:8000/tasks/'
 
     def __str__(self):
         return self.__class__.__name__

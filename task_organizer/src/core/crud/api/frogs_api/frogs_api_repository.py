@@ -3,10 +3,9 @@ import httplib2
 from abc import abstractmethod
 from typing import Optional
 import requests
-from src.model.entity_model import Entity
-from src.core.factory.api_factory import ApiFactory
-from src.core.repository.api.api_repository import ApiRepository
-from src.core.tools.commons import print_error
+from src.core.model.entity import Entity
+from src.core.crud.api.api_factory import ApiFactory
+from src.core.crud.api.api_repository import ApiRepository
 
 
 class FrogsApiRepository(ApiRepository):
@@ -25,23 +24,21 @@ class FrogsApiRepository(ApiRepository):
         try:
             self.internet_connector.request("HEAD", "/")
             self.internet_connector.close()
-            self.log.info('Internet connection: Ok')
+            # self.log.info('Internet connection: Ok')
             return True
         except httplib2.HttpLib2Error:
             self.internet_connector.close()
-            self.log.error('Error: internet connection failed')
-            print_error('Error: internet connection failed')
+            # self.log.error('Error: internet connection failed')
             return False
 
     def api_connection(self):
         if self.internet_connection() is True:
             try:
                 self.api_connector.get(url=self.url)
-                self.log.info('API connection: Ok')
+                # self.log.info('API connection: Ok')
                 return True
             except requests.exceptions.RequestException:
-                self.log.error('Error: API connection failed')
-                print_error('Error: API connection failed')
+                # self.log.error('Error: API connection failed')
                 return False
         else:
             return False
@@ -49,23 +46,21 @@ class FrogsApiRepository(ApiRepository):
     def insert(self, entity: Entity):
         if self.api_connection is True:
             entity.id = entity.id if entity.id is not None else str(uuid.uuid4())
-            self.log.info('Executing API statement: post(url={}, json={})')\
-                .format(url=self.url, json=entity.__dict__)
+            # self.log.info('Executing API statement: post(url={}, json={})')\
+            #     .format(url=self.url, json=entity.__dict__)
             api_post = self.api_connector.post(url=self.url, json=entity)
             self.status_code = api_post.status_code
             self.reason = api_post.reason
-            self.log.info('HTTP response: Status Code = {}, Reason = {})')\
-                .format(self.status_code, self.reason)
+            # self.log.info('HTTP response: Status Code = {}, Reason = {})')\
+            #     .format(self.status_code, self.reason)
             if self.status_code == 200:
-                self.log.info('Operation result: A new task has been saved')
+                # self.log.info('Operation result: A new task has been saved')
                 return api_post
             else:
-                self.log.error('Error: New task may not have been saved correctly')
-                print_error('Error: New task may not have been saved correctly')
+                # self.log.error('Error: New task may not have been saved correctly')
                 return api_post
-        else:
-            self.log.error('Error: Without connection to API')
-            print_error('Error: Without connection to API')
+        # else:
+            # self.log.error('Error: Without connection to API')
 
     # def put(self, entity: Entity):
     #     update_stm = self.sql_factory.update(entity.__dict__, filters=[
