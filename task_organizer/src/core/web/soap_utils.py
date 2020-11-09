@@ -1,4 +1,4 @@
-import logging as log
+from src.core.config.app_config import log
 from enum import Enum
 from typing import Optional
 
@@ -19,6 +19,6 @@ def soap_call(
     log.info('Processing SOAP {} {} -> {} \n{}'.format(all_headers, method, url, data if data else ''))
     response = requests.request(url=url, method=method, headers=all_headers, data=data)
     log.info('Response <=  Status: {}  Payload: {}'
-         .format(response.status_code, response.content if response.content else '<None>'))
+             .format(response.status_code, response.content if response.content else '<None>'))
 
     return response

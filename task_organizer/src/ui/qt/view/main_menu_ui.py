@@ -4,7 +4,7 @@ from PyQt5.QtCore import QTime, Qt
 from PyQt5.QtWidgets import QMessageBox, QTableWidgetItem
 from PyQt5.QtGui import QIcon, QPixmap
 from core.crud.api.frogs_api.frogs_api_repository import FrogsApiRepository
-from src.core.crud.file.file_repository import FileRepository
+from src.core.crud.file.file_repository import MyRepo
 from src.ui.qt.view.qt_view import QtView
 from src.core.model.task_model import Task
 
@@ -14,7 +14,7 @@ class MainMenuUi(QtView):
 
     def __init__(self):
         super().__init__(MainMenuUi.window())
-        self.task_service = FileRepository('gabirubal')
+        self.task_service = MyRepo('gabirubal')
         self.selected_task = None
         # self.api_task = FrogsApiRepository()
         self.form = MainMenuUi.form()
@@ -65,7 +65,6 @@ class MainMenuUi(QtView):
         self.taskItems.append(f'To do - {self.lineEdit.text()} - {str_selected_date} - {selected_time} - '
                               f'{selected_type_text} - {selected_priority_text}')
         self.selected_task = self.selected_task if self.selected_task else Task()
-        self.selected_task.entity_id = '123'
         self.selected_task.status = 'To do'
         self.selected_task.name = self.lineEdit.text()
         self.selected_task.date = str_selected_date

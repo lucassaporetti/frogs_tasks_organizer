@@ -24,21 +24,21 @@ class FrogsApiRepository(ApiRepository):
         try:
             self.internet_connector.request("HEAD", "/")
             self.internet_connector.close()
-            # self.log.info('Internet connection: Ok')
+            self.logger.info('Internet connection: Ok')
             return True
         except httplib2.HttpLib2Error:
             self.internet_connector.close()
-            # self.log.error('Error: internet connection failed')
+            self.logger.error('Error: internet connection failed')
             return False
 
     def api_connection(self):
         if self.internet_connection() is True:
             try:
                 self.api_connector.get(url=self.url)
-                # self.log.info('API connection: Ok')
+                self.logger.info('API connection: Ok')
                 return True
             except requests.exceptions.RequestException:
-                # self.log.error('Error: API connection failed')
+                self.logger.error('Error: API connection failed')
                 return False
         else:
             return False
@@ -46,21 +46,21 @@ class FrogsApiRepository(ApiRepository):
     def insert(self, entity: Entity):
         if self.api_connection is True:
             entity.id = entity.id if entity.id is not None else str(uuid.uuid4())
-            # self.log.info('Executing API statement: post(url={}, json={})')\
-            #     .format(url=self.url, json=entity.__dict__)
+            self.logger.info('Executing API statement: post(url={}, json={})')\
+                .format(url=self.url, json=entity.__dict__)
             api_post = self.api_connector.post(url=self.url, json=entity)
             self.status_code = api_post.status_code
             self.reason = api_post.reason
-            # self.log.info('HTTP response: Status Code = {}, Reason = {})')\
-            #     .format(self.status_code, self.reason)
+            self.logger.info('HTTP response: Status Code = {}, Reason = {})')\
+                .format(self.status_code, self.reason)
             if self.status_code == 200:
-                # self.log.info('Operation result: A new task has been saved')
+                self.logger.info('Operation result: A new task has been saved')
                 return api_post
             else:
-                # self.log.error('Error: New task may not have been saved correctly')
+                self.logger.error('Error: New task may not have been saved correctly')
                 return api_post
-        # else:
-            # self.log.error('Error: Without connection to API')
+        else:
+            self.logger.error('Error: Without connection to API')
 
     # def put(self, entity: Entity):
     #     update_stm = self.sql_factory.update(entity.__dict__, filters=[
@@ -107,6 +107,6 @@ class FrogsApiRepository(ApiRepository):
     #     else:
     #         return None
     #
-    # @abstractmethod
-    # def row_to_entity(self, row: tuple) -> Entity:
-    #     pass
+    @abstractmethod
+    def row_to_entity(self, row: tuple) -> Entity:
+        pass

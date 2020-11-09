@@ -1,4 +1,4 @@
-import logging as log
+from src.core.config.app_config import log
 from typing import Optional
 
 import requests
