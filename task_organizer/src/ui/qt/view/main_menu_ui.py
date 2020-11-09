@@ -16,7 +16,7 @@ class MainMenuUi(QtView):
         super().__init__(MainMenuUi.window())
         self.task_service = FileRepository('gabirubal')
         self.selected_task = None
-        self.api_task = FrogsApiRepository()
+        # self.api_task = FrogsApiRepository()
         self.form = MainMenuUi.form()
         self.form.setupUi(self.window)
         self.lineEdit = self.qt.find_line_edit('lineEdit')
@@ -29,7 +29,6 @@ class MainMenuUi(QtView):
         self.tasks_table = self.qt.find_table_widget('taskTable')
         self.today_date = None
         self.taskItems = []
-        self.task = None
         self.setup_ui()
 
     def setup_ui(self):
@@ -73,8 +72,9 @@ class MainMenuUi(QtView):
         self.selected_task.time = selected_time
         self.selected_task.task_type = selected_type_text
         self.selected_task.priority = selected_priority_text
-        self.api_task.insert(entity=self.selected_task)
-
+        # self.api_task.insert(entity=self.selected_task)
+        self.task_service.insert(self.selected_task)
+        self.logger.info('Item saved: {}'.format(self.selected_task))
         message = QMessageBox()
         message.setStyleSheet("""
                                                     background-color: rgb(50, 85, 127);
@@ -114,8 +114,6 @@ class MainMenuUi(QtView):
         self.tasks_table.resizeColumnsToContents()
         self.button_reset_clicked()
         print(self.taskItems)
-        print(self.task)
-        # self.logger.info('Item saved: {}'.format(self.task))
 
     def button_reset_clicked(self):
         self.priority_box.setCurrentIndex(-1)

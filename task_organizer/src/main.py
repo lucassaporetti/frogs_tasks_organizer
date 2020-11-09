@@ -11,10 +11,12 @@
 
 import signal
 
-from core.config.app_config import AppConfigs
 from src.ui.qt.task_organizer_qt import TaskOrganizerQt
+from src.core.config.app_config import AppConfigs
 
-AppConfigs().logger().info(AppConfigs.INSTANCE)
+
+def setup():
+    AppConfigs().logger().info(AppConfigs.INSTANCE)
 
 
 def exit_app(sig=None, frame=None):
@@ -36,5 +38,6 @@ class Main:
 # Application entry point
 if __name__ == "__main__":
     signal.signal(signal.SIGINT, exit_app)
+    setup()
     TaskOrganizerQt().run()
     exit_app(0)

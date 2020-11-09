@@ -22,7 +22,7 @@ class Task(Entity):
         self.priority = priority
 
     def __str__(self):
-        return '{}"id": "{}", "status": "{}", "name": "{}", "date": "{}", "time": "{}", "type": "{}", ' \
+        return '{}"entity_id": "{}", "status": "{}", "name": "{}", "date": "{}", "time": "{}", "task_type": "{}", ' \
                '"priority": "{}"{}'\
             .format(super().__str__(), '{', self.entity_id, self.status, self.name, self.date,
                     self.time, self.task_type, self.priority, '}')

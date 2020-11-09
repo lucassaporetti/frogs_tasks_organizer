@@ -2,7 +2,6 @@ import os
 from re import sub
 from typing import Optional
 import logging as log
-
 from src.core.config.properties import Properties
 from src.core.meta.singleton import Singleton
 from src.core.tools.commons import log_init

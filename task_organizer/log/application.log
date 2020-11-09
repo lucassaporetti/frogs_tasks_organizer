@@ -1,9 +1,10 @@
-2020-11-07 01:48:51,910 [MainThread] INFO  main.py::<module>(@Line:17) 
+2020-11-09 17:13:29,772 [MainThread] INFO  main.py::setup(@Line:19) 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 AppConfigs
   |-RootDir = /home/lucassaporetti/git_repository/frogs_tasks_organizer/task_organizer/src
   |-LogFile = /home/lucassaporetti/git_repository/frogs_tasks_organizer/task_organizer/src/../log/application.log
   |-AppProperties:
    \-api_url=http://localhost:8000/tasks/
-   |-persistence.repository.type=api
+   |-persistence.repository.type=file
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= 
+2020-11-09 17:13:35,264 [MainThread] INFO  main_menu_ui.py::button_save_clicked(@Line:77) Item saved: Entity( uuid=e49dd1d8-3819-4350-b5b2-90fee69193a9 )"entity_id": "{", "status": "123", "name": "To do", "date": "ssss", "time": "2020/11/09", "task_type": "17:13", "priority": "Study"not important / URGENT 
