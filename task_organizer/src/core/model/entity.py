@@ -1,14 +1,14 @@
 import json
+import uuid
 from typing import Tuple
-from uuid import UUID
 
 
 class Entity:
-    def __init__(self, entity_id: UUID = None):
+    def __init__(self, entity_id: str = uuid.uuid4()):
         self.uuid = entity_id
 
     def __str__(self):
-        return '{}"entity_id": "{}", '.format('{', str(self.uuid))
+        return "Entity( entity_id={} )".format(str(self.uuid))
 
     def __eq__(self, other):
         return isinstance(other, Entity) and all(item in self.to_dict().items() for item in other.to_dict().items())

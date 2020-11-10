@@ -42,21 +42,21 @@ class FileRepository(Repository):
             return FileRepository.__storages[self.filename]
 
     def insert(self, entity: Entity):
-        entity.uuid = entity.uuid if entity.uuid is not None else uuid.uuid4()
+        entity.uuid = str(uuid.uuid4())
         self.file_db.data.append(entity.to_dict())
         self.file_db.commit()
         self.logger.debug("{} has been inserted !".format(entity.__class__.__name__))
 
     def update(self, entity: Entity):
         for index, next_entry in enumerate(self.file_db.data):
-            if next_entry['uuid'] == entity.uuid:
+            if next_entry['entity_id'] == entity.uuid:
                 self.file_db.data[index] = entity.to_dict()
                 self.file_db.commit()
                 self.logger.debug("{} has been updated !".format(entity.__class__.__name__))
 
     def delete(self, entity: Entity):
         for index, next_entry in enumerate(self.file_db.data):
-            if next_entry['uuid'] == entity.uuid:
+            if next_entry['entity_id'] == entity.uuid:
                 self.file_db.data.remove(self.file_db.data[index])
                 self.file_db.commit()
                 self.logger.debug("{} has been deleted !".format(entity.__class__.__name__))
@@ -83,7 +83,7 @@ class FileRepository(Repository):
 
     def find_by_id(self, entity_id: uuid.UUID) -> Optional[Entity]:
         if entity_id:
-            result = [c for c in self.file_db.data if entity_id == c['uuid']]
+            result = [c for c in self.file_db.data if entity_id == c['entity_id']]
             return result if len(result) > 0 else None
         else:
             return None

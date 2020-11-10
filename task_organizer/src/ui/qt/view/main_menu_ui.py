@@ -15,7 +15,7 @@ class MainMenuUi(QtView):
     def __init__(self):
         super().__init__(MainMenuUi.window())
         self.task_service = MyRepo('gabirubal')
-        self.selected_task = None
+        self.new_task = None
         # self.api_task = FrogsApiRepository()
         self.form = MainMenuUi.form()
         self.form.setupUi(self.window)
@@ -28,7 +28,6 @@ class MainMenuUi(QtView):
         self.buttonReset = self.qt.find_button('reset_button')
         self.tasks_table = self.qt.find_table_widget('taskTable')
         self.today_date = None
-        self.taskItems = []
         self.setup_ui()
 
     def setup_ui(self):
@@ -62,18 +61,20 @@ class MainMenuUi(QtView):
         selected_type_index = self.type_box.currentIndex()
         selected_type_icon = self.type_box.itemIcon(selected_type_index)
         selected_type_text = self.type_box.currentText()
-        self.taskItems.append(f'To do - {self.lineEdit.text()} - {str_selected_date} - {selected_time} - '
-                              f'{selected_type_text} - {selected_priority_text}')
-        self.selected_task = self.selected_task if self.selected_task else Task()
-        self.selected_task.status = 'To do'
-        self.selected_task.name = self.lineEdit.text()
-        self.selected_task.date = str_selected_date
-        self.selected_task.time = selected_time
-        self.selected_task.task_type = selected_type_text
-        self.selected_task.priority = selected_priority_text
+
+        self.new_task = self.new_task if self.new_task else Task()
+        self.new_task.status = 'To do'
+        self.new_task.name = self.lineEdit.text()
+        self.new_task.date = str_selected_date
+        self.new_task.time = selected_time
+        self.new_task.task_type = selected_type_text
+        self.new_task.priority = selected_priority_text
+
         # self.api_task.insert(entity=self.selected_task)
-        self.task_service.insert(self.selected_task)
-        self.logger.info('Item saved: {}'.format(self.selected_task))
+        self.task_service.insert(self.new_task)
+        self.logger.info('Item saved: {}'.format(self.new_task))
+        print(self.new_task)
+
         message = QMessageBox()
         message.setStyleSheet("""
                                                     background-color: rgb(50, 85, 127);
@@ -87,6 +88,7 @@ class MainMenuUi(QtView):
         hands_up_icon = QPixmap(":/files/hands_up_icon.png")
         message.setIconPixmap(hands_up_icon)
         message.exec_()
+
         status_icon = QIcon(":/files/todo_icon.png")
         self.tasks_table.insertRow(self.tasks_table.rowCount())
         task_status = QTableWidgetItem()
@@ -104,6 +106,7 @@ class MainMenuUi(QtView):
         task_priority = QTableWidgetItem()
         task_priority.setIcon(selected_priority_icon)
         task_priority.setText(selected_priority_text)
+
         self.tasks_table.setItem(self.tasks_table.rowCount() - 1, 0, task_status)
         self.tasks_table.setItem(self.tasks_table.rowCount() - 1, 1, task_text)
         self.tasks_table.setItem(self.tasks_table.rowCount() - 1, 2, task_date)
@@ -111,8 +114,8 @@ class MainMenuUi(QtView):
         self.tasks_table.setItem(self.tasks_table.rowCount() - 1, 4, task_type)
         self.tasks_table.setItem(self.tasks_table.rowCount() - 1, 5, task_priority)
         self.tasks_table.resizeColumnsToContents()
+
         self.button_reset_clicked()
-        print(self.taskItems)
 
     def button_reset_clicked(self):
         self.priority_box.setCurrentIndex(-1)
