@@ -3,7 +3,7 @@ import httplib2
 from abc import abstractmethod
 from typing import Optional
 import requests
-
+import json
 from core.crud.api import api_factory
 from src.core.model.entity import Entity
 from src.core.crud.api.api_factory import ApiFactory
@@ -63,23 +63,22 @@ class FrogsApiRepository(ApiRepository):
         else:
             return False
 
-    def rest_call(self,
-                  entity: Entity,
-                  method: str,
-                  data: str):
-        test_api_connection = self.api_connection()
-        if test_api_connection is True:
-            entity.uuid = str(uuid.uuid4())
-            self.logger.info('Processing REST {} -> {}'.format(method, self.api_url))
-            response = requests.request(url=self.api_url, method=method, data=data)
-            self.logger.info('Response <=  Status: {}  Payload: {}'.format(response.status_code, response))
-            if self.status_code == 200:
-                self.logger.info('Operation result: A new task has been saved')
-            else:
-                self.logger.error('Error: New task may not have been saved correctly')
-            return response
+    def insert(self, entity: Entity):
+        # test_api_connection = self.api_connection()
+        # if test_api_connection is True:
+        entity.uuid = str(uuid.uuid4())
+        self.logger.info('Processing REST {} -> {}'.format('POST', self.api_url))
+        data = entity.to_json()
+        url = 'http://127.0.0.1:8000/tasks/'
+        print(data)
+        response = requests.post(url=url, json=data)
+        self.logger.info('Response <=  Status: {}  Payload: {}'.format(response.status_code, response.reason))
+        if 299 <= response.status_code >= 200:
+            self.logger.info('Operation result: A new task has been saved')
         else:
-            self.logger.error('Error: Without connection to API')
+            self.logger.error('Error: New task may not have been saved correctly')
+    # else:
+    #     self.logger.error('Error: Without connection to API')
 
     # def insert(self, entity: Entity):
     #     if self.api_connection is True:

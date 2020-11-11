@@ -4,7 +4,7 @@ from src.core.crud.api.api_factory import ApiFactory
 from src.core.crud.repository import Repository
 
 
-class ApiRepository(ApiFactory):
+class ApiRepository(Repository):
     def __init__(self, api_factory: ApiFactory):
         super().__init__()
         self.api_factory = api_factory
@@ -13,7 +13,7 @@ class ApiRepository(ApiFactory):
         self.reason = None
         self.internet_connector = None
         self.api_connector = None
-        self.api_url = None
+        self.api_url = 'http://127.0.0.1:8000/tasks/'
         self.internet_connection()
         self.api_connection()
 

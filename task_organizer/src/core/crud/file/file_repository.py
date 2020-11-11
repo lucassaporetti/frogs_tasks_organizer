@@ -43,7 +43,7 @@ class FileRepository(Repository):
 
     def insert(self, entity: Entity):
         entity.uuid = str(uuid.uuid4())
-        self.file_db.data.append(entity.to_dict())
+        self.file_db.data.append(entity.to_json())
         self.file_db.commit()
         self.logger.debug("{} has been inserted !".format(entity.__class__.__name__))
 

@@ -1,12 +1,12 @@
-from abc import ABC
-
+from core.crud.api.frogs_api.frogs_api_repository import FrogsApiRepository, MyApiRepo
+from core.crud.crud_service import CrudService
 from core.crud.file.file_repository import MyRepo
 from src.core.model.entity import Entity
 
 
-class Service(ABC):
+class Service(CrudService):
     def __init__(self):
-        self.database = MyRepo('gabirubal')
+        self.database = MyApiRepo()
 
     def __str__(self):
         return self.__class__.__name__

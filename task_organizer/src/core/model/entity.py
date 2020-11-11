@@ -31,7 +31,8 @@ class Entity:
     def to_json(self):
         dict_obj = self.to_dict()
         json_str = json.dumps(dict_obj)
-        return json_str
+        json_object = json.loads(json_str)
+        return json_object
 
     def to_columns(self) -> Tuple[str]:
         cols = []
