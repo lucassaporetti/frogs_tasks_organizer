@@ -11,16 +11,16 @@ class ApiRepository(Repository):
         self.logger = log
         self.status_code = None
         self.reason = None
-        self.internet_connector = None
-        self.api_connector = None
+        self.internet_connection = False
+        self.api_connection = False
         self.api_url = 'http://127.0.0.1:8000/tasks/'
-        self.internet_connection()
-        self.api_connection()
+        self.test_internet_connection()
+        self.test_api_connection()
 
     @abstractmethod
-    def internet_connection(self):
+    def test_internet_connection(self):
         pass
 
     @abstractmethod
-    def api_connection(self):
+    def test_api_connection(self):
         pass

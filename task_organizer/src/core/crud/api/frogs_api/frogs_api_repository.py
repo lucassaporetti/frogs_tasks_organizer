@@ -32,39 +32,33 @@ class FrogsApiRepository(ApiRepository):
 
     def __init__(self):
         super().__init__(ApiFactory())
-        self.api_url = 'http://127.0.0.1:8000/tasks/'
-        self.connection = False
 
     def __str__(self):
-        return "{}-{}:{}/{}".format(self.api_url, self.connection, self.status_code, self.reason)
+        return "{}:{}/{}".format(self.api_url, self.status_code, self.reason)
 
-    def internet_connection(self):
-        self.internet_connector = httplib2.HTTPConnectionWithTimeout("216.58.192.142", timeout=5)
+    def test_internet_connection(self):
         try:
-            self.internet_connector.request("HEAD", "/")
-            self.internet_connector.close()
-            self.logger.info('Internet connection: Ok')
-            self.connection = True
-            return self.connection
-        except httplib2.HttpLib2Error:
-            self.internet_connector.close()
-            self.logger.error('Error: Internet connection failed')
-            return self.connection
+            internet_connector = requests.session()
+            response = internet_connector.get("http://216.58.192.142")
+            if 200 <= response.status_code <= 299:
+                self.internet_connection = True
+                return self.logger.info('Internet connection: Ok')
+        except requests.exceptions.RequestException:
+            self.internet_connection = False
+            return self.logger.error('Error: Internet connection failed')
 
-    def api_connection(self):
-        if self.connection is True:
+    def test_api_connection(self):
+        if self.internet_connection is True:
             try:
-                requests.get(url='http://127.0.0.1:8000/')
-                self.logger.info('API connection: Ok')
-                return True
+                requests.get(url=self.api_url)
+                self.api_connection = True
+                return self.logger.info('API connection: Ok')
             except requests.exceptions.RequestException:
-                self.logger.error('Error: API connection failed')
-                return False
+                self.api_connection = False
+                return self.logger.error('Error: API connection failed')
 
     def insert(self, entity: Entity):
-        self.internet_connection()
-        test_api_connection = self.api_connection()
-        if test_api_connection is True:
+        if self.api_connection is True:
             entity.uuid = str(uuid.uuid4())
             self.logger.info('Processing REST {} -> {}'.format('POST', self.api_url))
             data = entity.to_json()
@@ -74,8 +68,9 @@ class FrogsApiRepository(ApiRepository):
                 self.logger.info('Operation result: A new task has been saved')
             else:
                 self.logger.error('Error: New task may not have been saved correctly')
+            self.logger.info('Task saved: {}'.format(entity))
         else:
-            self.logger.error('Error: API connection failed')
+            self.logger.error("Error: New task can't be saved")
 
     # def put(self, entity: Entity):
     #     update_stm = self.sql_factory.update(entity.__dict__, filters=[

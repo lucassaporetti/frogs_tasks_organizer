@@ -13,7 +13,6 @@ class MainMenuUi(QtView):
 
     def __init__(self):
         super().__init__(MainMenuUi.window())
-        self.task_service = TaskService()
         self.new_task = None
         self.form = MainMenuUi.form()
         self.form.setupUi(self.window)
@@ -67,9 +66,7 @@ class MainMenuUi(QtView):
         self.new_task.time = selected_time
         self.new_task.task_type = selected_type_text
         self.new_task.priority = selected_priority_text
-        self.task_service.save(self.new_task)
-        self.logger.info('Item saved: {}'.format(self.new_task))
-        print(self.new_task)
+        TaskService().save(self.new_task)
 
         message = QMessageBox()
         message.setStyleSheet("""
