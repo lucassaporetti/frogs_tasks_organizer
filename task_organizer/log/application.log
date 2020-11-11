@@ -1,4 +1,4 @@
-2020-11-10 23:34:12,437 [MainThread] INFO  main.py::setup(@Line:19) 
+2020-11-11 16:32:08,469 [MainThread] INFO  main.py::setup(@Line:19) 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 AppConfigs
   |-RootDir = /home/lucassaporetti/git_repository/frogs_tasks_organizer/task_organizer/src
@@ -7,14 +7,17 @@ AppConfigs
    \-persistence.repository.type=FILE
    |-persistence.database.type=FILE_STORAGET
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= 
-2020-11-10 23:34:12,754 [MainThread] INFO  frogs_api_repository.py::internet_connection(@Line:46) Internet connection: Ok 
-2020-11-10 23:34:12,914 [MainThread] INFO  frogs_api_repository.py::internet_connection(@Line:46) Internet connection: Ok 
-2020-11-10 23:34:12,920 [MainThread] DEBUG connectionpool.py::_new_conn(@Line:205) Starting new HTTP connection (1): 127.0.0.1:8000 
-2020-11-10 23:34:12,923 [MainThread] DEBUG connectionpool.py::_make_request(@Line:393) http://127.0.0.1:8000 "GET / HTTP/1.1" 200 40 
-2020-11-10 23:34:12,924 [MainThread] INFO  frogs_api_repository.py::api_connection(@Line:58) API connection: Ok 
-2020-11-10 23:34:27,477 [MainThread] INFO  frogs_api_repository.py::insert(@Line:70) Processing REST POST -> http://127.0.0.1:8000/tasks/ 
-2020-11-10 23:34:27,482 [MainThread] DEBUG connectionpool.py::_new_conn(@Line:205) Starting new HTTP connection (1): 127.0.0.1:8000 
-2020-11-10 23:34:27,571 [MainThread] DEBUG connectionpool.py::_make_request(@Line:393) http://127.0.0.1:8000 "POST /tasks/ HTTP/1.1" 201 177 
-2020-11-10 23:34:27,572 [MainThread] INFO  frogs_api_repository.py::insert(@Line:75) Response <=  Status: 201  Payload: Created 
-2020-11-10 23:34:27,572 [MainThread] ERROR frogs_api_repository.py::insert(@Line:79) Error: New task may not have been saved correctly 
-2020-11-10 23:34:27,573 [MainThread] INFO  main_menu_ui.py::button_save_clicked(@Line:71) Item saved: 476662af-e24a-48c4-bc7c-0367d94c0853 | To do | Uhul | 2020/11/11 | 10:28 | Spiritual | not important / not urgent 
+2020-11-11 16:32:08,748 [MainThread] INFO  frogs_api_repository.py::internet_connection(@Line:46) Internet connection: Ok 
+2020-11-11 16:32:08,755 [MainThread] DEBUG connectionpool.py::_new_conn(@Line:205) Starting new HTTP connection (1): 127.0.0.1:8000 
+2020-11-11 16:32:08,760 [MainThread] DEBUG connectionpool.py::_make_request(@Line:393) http://127.0.0.1:8000 "GET / HTTP/1.1" 200 40 
+2020-11-11 16:32:08,762 [MainThread] INFO  frogs_api_repository.py::api_connection(@Line:58) API connection: Ok 
+2020-11-11 16:32:14,934 [MainThread] INFO  frogs_api_repository.py::internet_connection(@Line:46) Internet connection: Ok 
+2020-11-11 16:32:14,938 [MainThread] DEBUG connectionpool.py::_new_conn(@Line:205) Starting new HTTP connection (1): 127.0.0.1:8000 
+2020-11-11 16:32:14,941 [MainThread] DEBUG connectionpool.py::_make_request(@Line:393) http://127.0.0.1:8000 "GET / HTTP/1.1" 200 40 
+2020-11-11 16:32:14,942 [MainThread] INFO  frogs_api_repository.py::api_connection(@Line:58) API connection: Ok 
+2020-11-11 16:32:14,942 [MainThread] INFO  frogs_api_repository.py::insert(@Line:69) Processing REST POST -> http://127.0.0.1:8000/tasks/ 
+2020-11-11 16:32:14,944 [MainThread] DEBUG connectionpool.py::_new_conn(@Line:205) Starting new HTTP connection (1): 127.0.0.1:8000 
+2020-11-11 16:32:15,031 [MainThread] DEBUG connectionpool.py::_make_request(@Line:393) http://127.0.0.1:8000 "POST /tasks/ HTTP/1.1" 201 171 
+2020-11-11 16:32:15,033 [MainThread] INFO  frogs_api_repository.py::insert(@Line:72) Response <=  Status: 201  Payload: Created 
+2020-11-11 16:32:15,033 [MainThread] INFO  frogs_api_repository.py::insert(@Line:74) Operation result: A new task has been saved 
+2020-11-11 16:32:15,034 [MainThread] INFO  main_menu_ui.py::button_save_clicked(@Line:71) Item saved: 8ea4a4be-6962-4625-8fd2-714828a49491 | To do | teste | 2020/11/11 | 16:32 | Family | not important / URGENT 
