@@ -4,9 +4,9 @@ from src.core.crud.api.api_factory import ApiFactory
 from src.core.crud.repository import Repository
 
 
-class ApiRepository(Repository):
+class ApiRepository(ApiFactory):
     def __init__(self, api_factory: ApiFactory):
-        super().__init__(api_factory.__str__())
+        super().__init__()
         self.api_factory = api_factory
         self.logger = log
         self.status_code = None

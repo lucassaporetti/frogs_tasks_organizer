@@ -1,0 +1,13 @@
+2020-11-10 22:18:16,774 [MainThread] INFO  main.py::setup(@Line:19) 
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+AppConfigs
+  |-RootDir = /home/lucassaporetti/git_repository/frogs_tasks_organizer/task_organizer/src
+  |-LogFile = /home/lucassaporetti/git_repository/frogs_tasks_organizer/task_organizer/src/../log/application.log
+  |-AppProperties:
+   \-persistence.repository.type=FILE
+   |-persistence.database.type=FILE_STORAGET
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= 
+2020-11-10 22:18:16,948 [MainThread] DEBUG file_storage.py::__init__(@Line:13) File storage filename=gabirubal created and loaded entries=0 
+2020-11-10 22:18:23,254 [MainThread] DEBUG file_storage.py::commit(@Line:26) File storage filename=gabirubal committed entries=1 
+2020-11-10 22:18:23,254 [MainThread] DEBUG file_repository.py::insert(@Line:48) Task has been inserted ! 
+2020-11-10 22:18:23,254 [MainThread] INFO  main_menu_ui.py::button_save_clicked(@Line:73) Item saved: feacc793-5f81-486f-bee3-0a6107e4d212 | To do | eee | 2020/11/10 | 22:18 | Business | not important / URGENT 

@@ -3,8 +3,7 @@ from PyQt5 import uic
 from PyQt5.QtCore import QTime, Qt
 from PyQt5.QtWidgets import QMessageBox, QTableWidgetItem
 from PyQt5.QtGui import QIcon, QPixmap
-from core.crud.api.frogs_api.frogs_api_repository import FrogsApiRepository
-from src.core.crud.file.file_repository import MyRepo
+from core.service.task_service import TaskService
 from src.ui.qt.view.qt_view import QtView
 from src.core.model.task_model import Task
 
@@ -14,9 +13,8 @@ class MainMenuUi(QtView):
 
     def __init__(self):
         super().__init__(MainMenuUi.window())
-        self.task_service = MyRepo('gabirubal')
+        self.task_service = TaskService()
         self.new_task = None
-        # self.api_task = FrogsApiRepository()
         self.form = MainMenuUi.form()
         self.form.setupUi(self.window)
         self.lineEdit = self.qt.find_line_edit('lineEdit')
@@ -69,9 +67,7 @@ class MainMenuUi(QtView):
         self.new_task.time = selected_time
         self.new_task.task_type = selected_type_text
         self.new_task.priority = selected_priority_text
-
-        # self.api_task.insert(entity=self.selected_task)
-        self.task_service.insert(self.new_task)
+        self.task_service.save(self.new_task)
         self.logger.info('Item saved: {}'.format(self.new_task))
         print(self.new_task)
 

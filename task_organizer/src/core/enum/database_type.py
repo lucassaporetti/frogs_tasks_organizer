@@ -2,7 +2,8 @@ from enum import Enum
 
 
 class DatabaseType(Enum):
+    FILE_STORAGET = 'file-storage'
+    API = 'api'
     MYSQL = 'mysql'
     POSTGRESS_SQL = 'postgres'
-    FILE_STORAGET = 'file-storage'
     MONGO_DB = 'mongo-db'

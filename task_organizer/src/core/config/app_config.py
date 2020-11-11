@@ -1,7 +1,10 @@
 import os
+
 from re import sub
 from typing import Optional
 import logging as log
+
+from core.enum.database_type import DatabaseType
 from src.core.config.properties import Properties
 from src.core.meta.singleton import Singleton
 from src.core.tools.commons import log_init
@@ -35,8 +38,9 @@ class AppConfigs(metaclass=Singleton):
         self._logger = log_init(self._log_file)
         assert self._logger, "Unable to create the logger: {}".format(str(self._logger))
         self._resource_dir = resource_dir \
-            if resource_dir else os.environ.get('RESOURCE_DIR', "{}/main/resources".format(self._source_root))
+            if resource_dir else os.environ.get('RESOURCE_DIR', "{}/resources".format(self._source_root))
         self._app_properties = Properties(load_dir=self._resource_dir)
+        self._database_type = DatabaseType[self._app_properties.get('persistence.database.type')]
         AppConfigs.INSTANCE = AppConfigs.INSTANCE if AppConfigs.INSTANCE else self
 
     def __str__(self):

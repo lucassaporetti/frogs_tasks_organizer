@@ -3,18 +3,37 @@ import httplib2
 from abc import abstractmethod
 from typing import Optional
 import requests
+
+from core.crud.api import api_factory
 from src.core.model.entity import Entity
 from src.core.crud.api.api_factory import ApiFactory
 from src.core.crud.api.api_repository import ApiRepository
+from typing import Optional
+
+import requests
+from requests.structures import CaseInsensitiveDict
 
 
 class FrogsApiRepository(ApiRepository):
     __cache = {}
 
-    def __init__(self, api_factory: ApiFactory):
-        super().__init__(api_factory)
-        self.api_connector = requests.session()
-        self.url = api_factory.api_url()
+    @staticmethod
+    def check_criteria(partial_value, whole_value):
+        if isinstance(whole_value, str):
+            return str(partial_value).upper() in whole_value.upper()
+        elif isinstance(whole_value, int):
+            return int(partial_value) == whole_value
+        elif isinstance(whole_value, float):
+            return float(partial_value) == whole_value
+        elif isinstance(whole_value, bool):
+            return bool(partial_value) == whole_value
+        else:
+            return False
+
+    def __init__(self):
+        super().__init__(ApiFactory())
+        self.api_connector = requests.Session()
+        self.url = 'localhost:8000'
 
     def __str__(self):
         return "{}:{}/{}".format(self.url, self.status_code, self.reason)
@@ -32,9 +51,10 @@ class FrogsApiRepository(ApiRepository):
             return False
 
     def api_connection(self):
-        if self.internet_connection() is True:
+        test_internet_connection = self.internet_connection()
+        if test_internet_connection is True:
             try:
-                self.api_connector.get(url=self.url)
+                requests.get(url='http://127.0.0.1:8000/')
                 self.logger.info('API connection: Ok')
                 return True
             except requests.exceptions.RequestException:
@@ -43,24 +63,42 @@ class FrogsApiRepository(ApiRepository):
         else:
             return False
 
-    def insert(self, entity: Entity):
-        if self.api_connection is True:
-            entity.id = entity.id if entity.id is not None else str(uuid.uuid4())
-            self.logger.info('Executing API statement: post(url={}, json={})')\
-                .format(url=self.url, json=entity.__dict__)
-            api_post = self.api_connector.post(url=self.url, json=entity)
-            self.status_code = api_post.status_code
-            self.reason = api_post.reason
-            self.logger.info('HTTP response: Status Code = {}, Reason = {})')\
-                .format(self.status_code, self.reason)
+    def rest_call(self,
+                  entity: Entity,
+                  method: str,
+                  data: str):
+        test_api_connection = self.api_connection()
+        if test_api_connection is True:
+            entity.uuid = str(uuid.uuid4())
+            self.logger.info('Processing REST {} -> {}'.format(method, self.api_url))
+            response = requests.request(url=self.api_url, method=method, data=data)
+            self.logger.info('Response <=  Status: {}  Payload: {}'.format(response.status_code, response))
             if self.status_code == 200:
                 self.logger.info('Operation result: A new task has been saved')
-                return api_post
             else:
                 self.logger.error('Error: New task may not have been saved correctly')
-                return api_post
+            return response
         else:
             self.logger.error('Error: Without connection to API')
+
+    # def insert(self, entity: Entity):
+    #     if self.api_connection is True:
+    #         entity.uuid = str(uuid.uuid4())
+    #         self.logger.info('Executing API statement: post(url={}, json={})')\
+    #             .format(url=self.url, json=entity.__dict__)
+    #         api_post = self.api_connector.post(url=self.url, json=entity)
+    #         self.status_code = api_post.status_code
+    #         self.reason = api_post.reason
+    #         self.logger.info('HTTP response: Status Code = {}, Reason = {})')\
+    #             .format(self.status_code, self.reason)
+    #         if self.status_code == 200:
+    #             self.logger.info('Operation result: A new task has been saved')
+    #             return api_post
+    #         else:
+    #             self.logger.error('Error: New task may not have been saved correctly')
+    #             return api_post
+    #     else:
+    #         self.logger.error('Error: Without connection to API')
 
     # def put(self, entity: Entity):
     #     update_stm = self.sql_factory.update(entity.__dict__, filters=[
@@ -107,6 +145,15 @@ class FrogsApiRepository(ApiRepository):
     #     else:
     #         return None
     #
+
     @abstractmethod
-    def row_to_entity(self, row: tuple) -> Entity:
+    def dict_to_entity(self, row: dict) -> Entity:
         pass
+
+
+class MyApiRepo(FrogsApiRepository):
+    def __init__(self):
+        super().__init__()
+
+    def dict_to_entity(self, row: dict) -> Entity:
+        return Entity(row[uuid])

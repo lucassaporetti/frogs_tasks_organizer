@@ -81,7 +81,7 @@ class FileRepository(Repository):
         else:
             return [self.dict_to_entity(c) for c in self.file_db.data]
 
-    def find_by_id(self, entity_id: uuid.UUID) -> Optional[Entity]:
+    def find_by_id(self, entity_id: str) -> Optional[Entity]:
         if entity_id:
             result = [c for c in self.file_db.data if entity_id == c['entity_id']]
             return result if len(result) > 0 else None
