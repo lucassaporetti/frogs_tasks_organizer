@@ -3,6 +3,8 @@ from PyQt5 import uic
 from PyQt5.QtCore import QTime, Qt
 from PyQt5.QtWidgets import QMessageBox, QTableWidgetItem
 from PyQt5.QtGui import QIcon, QPixmap
+
+from core.crud.api.frogs_api.frogs_api_repository import FrogsApiRepository, MyApiRepo
 from core.service.task_service import TaskService
 from src.ui.qt.view.qt_view import QtView
 from src.core.model.task_model import Task
@@ -14,6 +16,7 @@ class MainMenuUi(QtView):
     def __init__(self):
         super().__init__(MainMenuUi.window())
         self.new_task = None
+        self.all_data = MyApiRepo().find_all()
         self.form = MainMenuUi.form()
         self.form.setupUi(self.window)
         self.lineEdit = self.qt.find_line_edit('lineEdit')

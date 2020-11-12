@@ -1,17 +1,9 @@
 import uuid
-import httplib2
 from abc import abstractmethod
-from typing import Optional
-import requests
-import json
-from core.crud.api import api_factory
 from src.core.model.entity import Entity
 from src.core.crud.api.api_factory import ApiFactory
 from src.core.crud.api.api_repository import ApiRepository
-from typing import Optional
-
 import requests
-from requests.structures import CaseInsensitiveDict
 
 
 class FrogsApiRepository(ApiRepository):
@@ -39,7 +31,7 @@ class FrogsApiRepository(ApiRepository):
     def test_internet_connection(self):
         try:
             internet_connector = requests.session()
-            response = internet_connector.get("http://216.58.192.142")
+            response = internet_connector.get(self.internet_url)
             if 200 <= response.status_code <= 299:
                 self.internet_connection = True
                 return self.logger.info('Internet connection: Ok')
@@ -72,39 +64,46 @@ class FrogsApiRepository(ApiRepository):
         else:
             self.logger.error("Error: New task can't be saved")
 
-    # def put(self, entity: Entity):
-    #     update_stm = self.sql_factory.update(entity.__dict__, filters=[
-    #         "ENTITY_ID = '{}'".format(entity.entity_id)
-    #     ])
-    #     self.log.info('Executing SQL statement: {}'.format(update_stm))
-    #     self.cursor.execute(update_stm)
-    #     self.connector.commit()
-    #
-    # def delete(self, entity: Entity):
-    #     delete_stm = self.sql_factory.delete(filters=[
-    #         "ENTITY_ID = '{}'".format(entity.entity_id)
-    #     ])
-    #     self.log.info('Executing SQL statement: {}'.format(delete_stm))
-    #     self.cursor.execute(delete_stm)
-    #     self.connector.commit()
-    #
-    # def find_all(self, filters: str = None) -> Optional[list]:
-    #     if filters is not None:
-    #         sql_filters = filters.upper().split(',')
-    #     else:
-    #         sql_filters = None
-    #     select_stm = self.sql_factory.select(filters=sql_filters)
-    #     self.log.info('Executing SQL statement: {}'.format(select_stm))
-    #     try:
-    #         self.cursor.execute(select_stm)
-    #         result = self.cursor.fetchall()
-    #         ret_val = []
-    #         for next_row in result:
-    #             ret_val.append(self.row_to_entity(next_row))
-    #         return ret_val
-    #     except ProgrammingError:
-    #         return None
-    #
+    def update(self, entity: Entity):
+        if self.api_connection is True:
+            self.logger.info('Processing REST {} -> {}'.format('PUT', self.api_url))
+            data = entity.to_json()
+            response = requests.put(url='{}/{}'.format(self.api_url, entity.uuid), json=data)
+            self.logger.info('Response <=  Status: {}  Payload: {}'.format(response.status_code, response.reason))
+            if 200 <= response.status_code <= 299:
+                self.logger.info('Operation result: A new task has been saved')
+            else:
+                self.logger.error('Error: New task may not have been saved correctly')
+            self.logger.info('Task updated: {}'.format(entity))
+        else:
+            self.logger.error("Error: New task can't be updated")
+
+    def delete(self, entity: Entity):
+        if self.api_connection is True:
+            self.logger.info('Processing REST {} -> {}'.format('DELETE', self.api_url))
+            data = entity.to_json()
+            response = requests.delete(url='{}/{}'.format(self.api_url, entity.uuid), json=data)
+            self.logger.info('Response <=  Status: {}  Payload: {}'.format(response.status_code, response.reason))
+            if 200 <= response.status_code <= 299:
+                self.logger.info('Operation result: Task correctly removed')
+            else:
+                self.logger.error('Error: Task must not have been removed correctly')
+            self.logger.info('Task deleted: {}'.format(entity))
+        else:
+            self.logger.error("Error: New task can't be deleted")
+
+    def find_all(self):
+        try:
+            api_connector = requests.session()
+            response = api_connector.get(self.api_url)
+            if 200 <= response.status_code <= 299:
+                data = response.json()
+                self.logger.info('Data loaded correctly from API')
+                return data
+        except requests.exceptions.RequestException:
+            data = None
+            return data and self.logger.error("Error: Data can't be loaded from API")
+
     # def find_by_id(self, id: str) -> Optional[Entity]:
     #     if id:
     #         select_stm = self.sql_factory.select(filters=[
@@ -116,7 +115,6 @@ class FrogsApiRepository(ApiRepository):
     #         return self.row_to_entity(result[0]) if len(result) > 0 else None
     #     else:
     #         return None
-    #
 
     @abstractmethod
     def dict_to_entity(self, row: dict) -> Entity:

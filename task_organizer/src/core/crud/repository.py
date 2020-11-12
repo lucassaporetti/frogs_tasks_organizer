@@ -10,14 +10,14 @@ class Repository(ABC):
     def insert(self, entity: Entity):
         pass
 
-    # @abstractmethod
-    # def update(self, entity: Entity):
-    #     pass
-    #
-    # @abstractmethod
-    # def delete(self, entity: Entity):
-    #     pass
-    #
+    @abstractmethod
+    def update(self, entity: Entity):
+        pass
+
+    @abstractmethod
+    def delete(self, entity: Entity):
+        pass
+
     # @abstractmethod
     # def find_all(self, filters: CaseInsensitiveDict = None) -> Optional[list]:
     #     pass

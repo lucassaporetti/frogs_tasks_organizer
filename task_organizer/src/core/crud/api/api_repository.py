@@ -12,6 +12,7 @@ class ApiRepository(Repository):
         self.status_code = None
         self.reason = None
         self.internet_connection = False
+        self.internet_url = 'http://216.58.192.142'
         self.api_connection = False
         self.api_url = 'http://127.0.0.1:8000/tasks/'
         self.test_internet_connection()
