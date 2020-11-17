@@ -1,4 +1,4 @@
-2020-11-12 20:30:52,719 [MainThread] INFO  main.py::setup(@Line:19) 
+2020-11-17 19:03:31,003 [MainThread] INFO  main.py::setup(@Line:19) 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 AppConfigs
   |-RootDir = /home/lucassaporetti/git_repository/frogs_tasks_organizer/task_organizer/src
@@ -7,14 +7,14 @@ AppConfigs
    \-persistence.repository.type=FILE
    |-persistence.database.type=FILE_STORAGET
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= 
-2020-11-12 20:30:52,838 [MainThread] DEBUG connectionpool.py::_new_conn(@Line:205) Starting new HTTP connection (1): 216.58.192.142:80 
-2020-11-12 20:30:53,150 [MainThread] DEBUG connectionpool.py::_make_request(@Line:393) http://216.58.192.142:80 "GET / HTTP/1.1" 301 219 
-2020-11-12 20:30:53,152 [MainThread] DEBUG connectionpool.py::_new_conn(@Line:205) Starting new HTTP connection (1): www.google.com:80 
-2020-11-12 20:30:53,257 [MainThread] DEBUG connectionpool.py::_make_request(@Line:393) http://www.google.com:80 "GET / HTTP/1.1" 200 5858 
-2020-11-12 20:30:53,259 [MainThread] INFO  frogs_api_repository.py::test_internet_connection(@Line:37) Internet connection: Ok 
-2020-11-12 20:30:53,261 [MainThread] DEBUG connectionpool.py::_new_conn(@Line:205) Starting new HTTP connection (1): 127.0.0.1:8000 
-2020-11-12 20:30:53,268 [MainThread] DEBUG connectionpool.py::_make_request(@Line:393) http://127.0.0.1:8000 "GET /tasks/ HTTP/1.1" 200 526 
-2020-11-12 20:30:53,268 [MainThread] INFO  frogs_api_repository.py::test_api_connection(@Line:47) API connection: Ok 
-2020-11-12 20:30:53,270 [MainThread] DEBUG connectionpool.py::_new_conn(@Line:205) Starting new HTTP connection (1): 127.0.0.1:8000 
-2020-11-12 20:30:53,274 [MainThread] DEBUG connectionpool.py::_make_request(@Line:393) http://127.0.0.1:8000 "GET /tasks/ HTTP/1.1" 200 526 
-2020-11-12 20:30:53,275 [MainThread] INFO  frogs_api_repository.py::find_all(@Line:101) Data loaded correctly from API 
+2020-11-17 19:03:31,142 [MainThread] DEBUG connectionpool.py::_new_conn(@Line:205) Starting new HTTP connection (1): 216.58.192.142:80 
+2020-11-17 19:03:31,461 [MainThread] DEBUG connectionpool.py::_make_request(@Line:393) http://216.58.192.142:80 "GET / HTTP/1.1" 301 219 
+2020-11-17 19:03:31,464 [MainThread] DEBUG connectionpool.py::_new_conn(@Line:205) Starting new HTTP connection (1): www.google.com:80 
+2020-11-17 19:03:31,574 [MainThread] DEBUG connectionpool.py::_make_request(@Line:393) http://www.google.com:80 "GET / HTTP/1.1" 200 5885 
+2020-11-17 19:03:31,577 [MainThread] INFO  frogs_api_repository.py::test_internet_connection(@Line:37) Internet connection: Ok 
+2020-11-17 19:03:31,581 [MainThread] DEBUG connectionpool.py::_new_conn(@Line:205) Starting new HTTP connection (1): 127.0.0.1:8000 
+2020-11-17 19:03:31,587 [MainThread] DEBUG connectionpool.py::_make_request(@Line:393) http://127.0.0.1:8000 "GET /tasks/ HTTP/1.1" 200 526 
+2020-11-17 19:03:31,587 [MainThread] INFO  frogs_api_repository.py::test_api_connection(@Line:47) API connection: Ok 
+2020-11-17 19:03:31,588 [MainThread] DEBUG connectionpool.py::_new_conn(@Line:205) Starting new HTTP connection (1): 127.0.0.1:8000 
+2020-11-17 19:03:31,594 [MainThread] DEBUG connectionpool.py::_make_request(@Line:393) http://127.0.0.1:8000 "GET /tasks/ HTTP/1.1" 200 526 
+2020-11-17 19:03:31,595 [MainThread] INFO  frogs_api_repository.py::find_all(@Line:101) Data loaded correctly from API 
