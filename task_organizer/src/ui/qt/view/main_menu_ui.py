@@ -17,7 +17,6 @@ class MainMenuUi(QtView):
         super().__init__(MainMenuUi.window())
         self.new_task = None
         self.all_data_loaded = MyApiRepo().find_all()
-        print(self.all_data_loaded)
         self.form = MainMenuUi.form()
         self.form.setupUi(self.window)
         self.lineEdit = self.qt.find_line_edit('lineEdit')
