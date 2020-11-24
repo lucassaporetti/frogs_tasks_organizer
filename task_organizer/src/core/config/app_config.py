@@ -1,13 +1,11 @@
 import os
-
 from re import sub
 from typing import Optional
 import logging as log
 
-from core.enum.database_type import DatabaseType
-from src.core.config.properties import Properties
-from src.core.meta.singleton import Singleton
-from src.core.tools.commons import log_init
+from core.config.properties import Properties
+from core.meta.singleton import Singleton
+from core.tools.commons import log_init
 
 APP_CONFIG_FORMAT = """
 AppConfigs
@@ -19,7 +17,6 @@ AppConfigs
 
 
 class AppConfigs(metaclass=Singleton):
-    INSTANCE = None
 
     @staticmethod
     def environ_name(property_name: str) -> str:
@@ -38,10 +35,8 @@ class AppConfigs(metaclass=Singleton):
         self._logger = log_init(self._log_file)
         assert self._logger, "Unable to create the logger: {}".format(str(self._logger))
         self._resource_dir = resource_dir \
-            if resource_dir else os.environ.get('RESOURCE_DIR', "{}/resources".format(self._source_root))
+            if resource_dir else os.environ.get('RESOURCE_DIR', "{}/main/resources".format(self._source_root))
         self._app_properties = Properties(load_dir=self._resource_dir)
-        self._database_type = DatabaseType[self._app_properties.get('persistence.database.type')]
-        AppConfigs.INSTANCE = AppConfigs.INSTANCE if AppConfigs.INSTANCE else self
 
     def __str__(self):
         return '\n{}{}{}'.format(
@@ -58,7 +53,13 @@ class AppConfigs(metaclass=Singleton):
     def source_root(self) -> str:
         return self._source_root
 
-    def logger(self):
+    def resource_dir(self) -> str:
+        return self._resource_dir
+
+    def log_dir(self) -> str:
+        return self._log_dir
+
+    def logger(self) -> log:
         return self._logger if self._logger else log
 
     def get(self, property_name: str) -> Optional[str]:

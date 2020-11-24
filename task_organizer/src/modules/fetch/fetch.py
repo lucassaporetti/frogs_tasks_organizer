@@ -1,9 +1,9 @@
 from typing import Optional
 
 import requests
-from src.core.enum.http_method import HttpMethod
-from src.modules.fetch.http_response import HttpResponse
-from src.core.tools.commons import sysout
+from core.enum.http_method import HttpMethod
+from modules.fetch.http_response import HttpResponse
+from core.tools.commons import sysout
 
 
 # @purpose: Do a request specified by method and according to parameters.
@@ -16,7 +16,7 @@ def fetch(
 
     url = url if url.startswith("http") else 'http://{}'.format(url)
     if not silent:
-        sysout('Fetching: method={} headers={} body={} url={} ...'.format(
+        sysout('Fetching: method={} table_headers={} body={} url={} ...'.format(
             method, headers if headers else '[]', body if body else '{}', url))
     response = requests.request(url=url, method=method.name, headers=headers, data=body, timeout=3)
     return HttpResponse.of(response)

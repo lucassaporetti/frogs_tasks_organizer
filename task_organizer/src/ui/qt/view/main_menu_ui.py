@@ -3,9 +3,7 @@ from PyQt5 import uic
 from PyQt5.QtCore import QTime, Qt
 from PyQt5.QtWidgets import QMessageBox, QTableWidgetItem
 from PyQt5.QtGui import QIcon, QPixmap
-
-from core.crud.api.frogs_api.frogs_api_repository import MyApiRepo
-from core.service.task_service import TaskService
+from core.crud.firebase.firebase_repository import FirebaseRepository
 from src.ui.qt.view.qt_view import QtView
 from src.core.model.task_model import Task
 
@@ -16,7 +14,8 @@ class MainMenuUi(QtView):
     def __init__(self):
         super().__init__(MainMenuUi.window())
         self.new_task = None
-        self.all_data_loaded = MyApiRepo().find_all()
+        self.all_data = []
+        self.repository = FirebaseRepository()
         self.form = MainMenuUi.form()
         self.form.setupUi(self.window)
         self.lineEdit = self.qt.find_line_edit('lineEdit')
@@ -33,6 +32,7 @@ class MainMenuUi(QtView):
     def setup_ui(self):
         self.calendar_settings()
         self.time_settings()
+        self.data_load()
         self.priority_box.view().setCursor(Qt.PointingHandCursor)
         self.type_box.view().setCursor(Qt.PointingHandCursor)
         self.buttonSave.clicked.connect(self.button_save_clicked)
@@ -50,6 +50,45 @@ class MainMenuUi(QtView):
     def time_settings(self):
         time_now = QTime.currentTime()
         self.timeEdit.setTime(time_now)
+
+    def data_load(self):
+        self.all_data = self.repository.get()
+        print(self.all_data)
+        for task in self.all_data:
+            if task['priority'] == 'not important / not urgent':
+                selected_priority_icon = QIcon(":/files/green_dot.png")
+            elif task['priority'] == 'IMPORTANT / not urgent':
+                selected_priority_icon = QIcon(":/files/blue_dot.png")
+            elif task['priority'] == 'not important / URGENT':
+                selected_priority_icon = QIcon(":/files/yellow_dot.png")
+            else:
+                selected_priority_icon = QIcon(":/files/red_dot.png")
+            status_icon = QIcon(":/files/{}_icon.png".format(task['status'].lower().strip().replace(" ", "")))
+            selected_type_icon = QIcon(":/files/{}_icon.png".format(task['task_type'].lower().strip().replace(" ", "")))
+            self.tasks_table.insertRow(self.tasks_table.rowCount())
+            task_status = QTableWidgetItem()
+            task_status.setIcon(status_icon)
+            task_status.setText(task['status'])
+            task_text = QTableWidgetItem()
+            task_text.setText(task['name'])
+            task_date = QTableWidgetItem()
+            task_date.setText(task['date'])
+            task_time = QTableWidgetItem()
+            task_time.setText(task['time'])
+            task_type = QTableWidgetItem()
+            task_type.setIcon(selected_type_icon)
+            task_type.setText(task['task_type'])
+            task_priority = QTableWidgetItem()
+            task_priority.setIcon(selected_priority_icon)
+            task_priority.setText(task['priority'])
+
+            self.tasks_table.setItem(self.tasks_table.rowCount() - 1, 0, task_status)
+            self.tasks_table.setItem(self.tasks_table.rowCount() - 1, 1, task_text)
+            self.tasks_table.setItem(self.tasks_table.rowCount() - 1, 2, task_date)
+            self.tasks_table.setItem(self.tasks_table.rowCount() - 1, 3, task_time)
+            self.tasks_table.setItem(self.tasks_table.rowCount() - 1, 4, task_type)
+            self.tasks_table.setItem(self.tasks_table.rowCount() - 1, 5, task_priority)
+            self.tasks_table.resizeColumnsToContents()
 
     def button_save_clicked(self):
         selected_date = self.dateBox.selectedDate()
@@ -69,7 +108,7 @@ class MainMenuUi(QtView):
         self.new_task.time = selected_time
         self.new_task.task_type = selected_type_text
         self.new_task.priority = selected_priority_text
-        TaskService().save(self.new_task)
+        self.repository.insert(self.new_task)
 
         message = QMessageBox()
         message.setStyleSheet("""

@@ -5,11 +5,11 @@ from typing import Optional
 
 from src.core.config.app_config import log
 from src.core.crud.file.file_storage import FileStorage
-from src.core.crud.repository import Repository
+from src.core.crud.crud_repository import CrudRepository
 from src.core.model.entity import Entity
 
 
-class FileRepository(Repository):
+class FileRepository(CrudRepository):
     __storages = {}
 
     @staticmethod
