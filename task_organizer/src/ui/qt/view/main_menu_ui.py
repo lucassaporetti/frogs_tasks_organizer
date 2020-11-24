@@ -54,41 +54,42 @@ class MainMenuUi(QtView):
     def data_load(self):
         self.all_data = self.repository.get()
         print(self.all_data)
-        for task in self.all_data:
-            if task['priority'] == 'not important / not urgent':
-                selected_priority_icon = QIcon(":/files/green_dot.png")
-            elif task['priority'] == 'IMPORTANT / not urgent':
-                selected_priority_icon = QIcon(":/files/blue_dot.png")
-            elif task['priority'] == 'not important / URGENT':
-                selected_priority_icon = QIcon(":/files/yellow_dot.png")
-            else:
-                selected_priority_icon = QIcon(":/files/red_dot.png")
-            status_icon = QIcon(":/files/{}_icon.png".format(task['status'].lower().strip().replace(" ", "")))
-            selected_type_icon = QIcon(":/files/{}_icon.png".format(task['task_type'].lower().strip().replace(" ", "")))
-            self.tasks_table.insertRow(self.tasks_table.rowCount())
-            task_status = QTableWidgetItem()
-            task_status.setIcon(status_icon)
-            task_status.setText(task['status'])
-            task_text = QTableWidgetItem()
-            task_text.setText(task['name'])
-            task_date = QTableWidgetItem()
-            task_date.setText(task['date'])
-            task_time = QTableWidgetItem()
-            task_time.setText(task['time'])
-            task_type = QTableWidgetItem()
-            task_type.setIcon(selected_type_icon)
-            task_type.setText(task['task_type'])
-            task_priority = QTableWidgetItem()
-            task_priority.setIcon(selected_priority_icon)
-            task_priority.setText(task['priority'])
+        if self.all_data is not None:
+            for task in self.all_data:
+                if task['priority'] == 'not important / not urgent':
+                    selected_priority_icon = QIcon(":/files/green_dot.png")
+                elif task['priority'] == 'IMPORTANT / not urgent':
+                    selected_priority_icon = QIcon(":/files/blue_dot.png")
+                elif task['priority'] == 'not important / URGENT':
+                    selected_priority_icon = QIcon(":/files/yellow_dot.png")
+                else:
+                    selected_priority_icon = QIcon(":/files/red_dot.png")
+                status_icon = QIcon(":/files/{}_icon.png".format(task['status'].lower().strip().replace(" ", "")))
+                selected_type_icon = QIcon(":/files/{}_icon.png".format(task['task_type'].lower().strip().replace(" ", "")))
+                self.tasks_table.insertRow(self.tasks_table.rowCount())
+                task_status = QTableWidgetItem()
+                task_status.setIcon(status_icon)
+                task_status.setText(task['status'])
+                task_text = QTableWidgetItem()
+                task_text.setText(task['name'])
+                task_date = QTableWidgetItem()
+                task_date.setText(task['date'])
+                task_time = QTableWidgetItem()
+                task_time.setText(task['time'])
+                task_type = QTableWidgetItem()
+                task_type.setIcon(selected_type_icon)
+                task_type.setText(task['task_type'])
+                task_priority = QTableWidgetItem()
+                task_priority.setIcon(selected_priority_icon)
+                task_priority.setText(task['priority'])
 
-            self.tasks_table.setItem(self.tasks_table.rowCount() - 1, 0, task_status)
-            self.tasks_table.setItem(self.tasks_table.rowCount() - 1, 1, task_text)
-            self.tasks_table.setItem(self.tasks_table.rowCount() - 1, 2, task_date)
-            self.tasks_table.setItem(self.tasks_table.rowCount() - 1, 3, task_time)
-            self.tasks_table.setItem(self.tasks_table.rowCount() - 1, 4, task_type)
-            self.tasks_table.setItem(self.tasks_table.rowCount() - 1, 5, task_priority)
-            self.tasks_table.resizeColumnsToContents()
+                self.tasks_table.setItem(self.tasks_table.rowCount() - 1, 0, task_status)
+                self.tasks_table.setItem(self.tasks_table.rowCount() - 1, 1, task_text)
+                self.tasks_table.setItem(self.tasks_table.rowCount() - 1, 2, task_date)
+                self.tasks_table.setItem(self.tasks_table.rowCount() - 1, 3, task_time)
+                self.tasks_table.setItem(self.tasks_table.rowCount() - 1, 4, task_type)
+                self.tasks_table.setItem(self.tasks_table.rowCount() - 1, 5, task_priority)
+                self.tasks_table.resizeColumnsToContents()
 
     def button_save_clicked(self):
         selected_date = self.dateBox.selectedDate()
@@ -159,6 +160,9 @@ class MainMenuUi(QtView):
         self.time_settings()
         self.lineEdit.setText('')
         self.window.repaint()
+
+    # def button_delete_clicked(self):
+    #
 
     def item_click(self, event):
         message = QMessageBox()

@@ -41,6 +41,7 @@ class FirebaseRepository(CrudRepository):
     def get(self):
         self.logger.debug('Inserting firebase entry: GET * into: {}'.format(self.firebase.database_url))
         tasks = self.db.child('tasks').get()
-        for task in tasks.each():
-            self.all_data.append(task.val())
-        return self.all_data
+        if tasks.val() is not None:
+            for task in tasks.each():
+                self.all_data.append(task.val())
+            return self.all_data
