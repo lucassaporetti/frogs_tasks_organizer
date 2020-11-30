@@ -404,7 +404,7 @@ font: 75 11pt &quot;MS Shell Dlg 2&quot;;</string>
      <string>Home</string>
     </property>
     <property name="icon">
-     <iconset resource="../../../../resources/frogs_resources.qrc">
+     <iconset resource="../../../resources/images/frogs_resources.qrc">
       <normaloff>:/files/home_icon.png</normaloff>:/files/home_icon.png</iconset>
     </property>
    </item>
@@ -413,7 +413,7 @@ font: 75 11pt &quot;MS Shell Dlg 2&quot;;</string>
      <string>Business</string>
     </property>
     <property name="icon">
-     <iconset resource="../../../../resources/frogs_resources.qrc">
+     <iconset resource="../../../resources/images/frogs_resources.qrc">
       <normaloff>:/files/business_icon.png</normaloff>:/files/business_icon.png</iconset>
     </property>
    </item>
@@ -422,7 +422,7 @@ font: 75 11pt &quot;MS Shell Dlg 2&quot;;</string>
      <string>Health</string>
     </property>
     <property name="icon">
-     <iconset resource="../../../../resources/frogs_resources.qrc">
+     <iconset resource="../../../resources/images/frogs_resources.qrc">
       <normaloff>:/files/health_icon.png</normaloff>:/files/health_icon.png</iconset>
     </property>
    </item>
@@ -431,7 +431,7 @@ font: 75 11pt &quot;MS Shell Dlg 2&quot;;</string>
      <string>Family</string>
     </property>
     <property name="icon">
-     <iconset resource="../../../../resources/frogs_resources.qrc">
+     <iconset resource="../../../resources/images/frogs_resources.qrc">
       <normaloff>:/files/family_icon.png</normaloff>:/files/family_icon.png</iconset>
     </property>
    </item>
@@ -440,7 +440,7 @@ font: 75 11pt &quot;MS Shell Dlg 2&quot;;</string>
      <string>Study</string>
     </property>
     <property name="icon">
-     <iconset resource="../../../../resources/frogs_resources.qrc">
+     <iconset resource="../../../resources/images/frogs_resources.qrc">
       <normaloff>:/files/study_icon.png</normaloff>:/files/study_icon.png</iconset>
     </property>
    </item>
@@ -449,7 +449,7 @@ font: 75 11pt &quot;MS Shell Dlg 2&quot;;</string>
      <string>Fun</string>
     </property>
     <property name="icon">
-     <iconset resource="../../../../resources/frogs_resources.qrc">
+     <iconset resource="../../../resources/images/frogs_resources.qrc">
       <normaloff>:/files/fun_icon.png</normaloff>:/files/fun_icon.png</iconset>
     </property>
    </item>
@@ -458,7 +458,7 @@ font: 75 11pt &quot;MS Shell Dlg 2&quot;;</string>
      <string>Social</string>
     </property>
     <property name="icon">
-     <iconset resource="../../../../resources/frogs_resources.qrc">
+     <iconset resource="../../../resources/images/frogs_resources.qrc">
       <normaloff>:/files/social_icon.png</normaloff>:/files/social_icon.png</iconset>
     </property>
    </item>
@@ -467,7 +467,7 @@ font: 75 11pt &quot;MS Shell Dlg 2&quot;;</string>
      <string>Spiritual</string>
     </property>
     <property name="icon">
-     <iconset resource="../../../../resources/frogs_resources.qrc">
+     <iconset resource="../../../resources/images/frogs_resources.qrc">
       <normaloff>:/files/spirituality_icon.png</normaloff>:/files/spirituality_icon.png</iconset>
     </property>
    </item>
@@ -581,7 +581,7 @@ font: 75 11pt &quot;MS Shell Dlg 2&quot;;</string>
      <string>not important / not urgent</string>
     </property>
     <property name="icon">
-     <iconset resource="../../../../resources/frogs_resources.qrc">
+     <iconset resource="../../../resources/images/frogs_resources.qrc">
       <normaloff>:/files/green_dot.png</normaloff>:/files/green_dot.png</iconset>
     </property>
    </item>
@@ -590,7 +590,7 @@ font: 75 11pt &quot;MS Shell Dlg 2&quot;;</string>
      <string>IMPORTANT / not urgent</string>
     </property>
     <property name="icon">
-     <iconset resource="../../../../resources/frogs_resources.qrc">
+     <iconset resource="../../../resources/images/frogs_resources.qrc">
       <normaloff>:/files/blue_dot.png</normaloff>:/files/blue_dot.png</iconset>
     </property>
    </item>
@@ -599,7 +599,7 @@ font: 75 11pt &quot;MS Shell Dlg 2&quot;;</string>
      <string>not important / URGENT</string>
     </property>
     <property name="icon">
-     <iconset resource="../../../../resources/frogs_resources.qrc">
+     <iconset resource="../../../resources/images/frogs_resources.qrc">
       <normaloff>:/files/yellow_dot.png</normaloff>:/files/yellow_dot.png</iconset>
     </property>
    </item>
@@ -608,7 +608,7 @@ font: 75 11pt &quot;MS Shell Dlg 2&quot;;</string>
      <string>IMPORTANT / URGENT</string>
     </property>
     <property name="icon">
-     <iconset resource="../../../../resources/frogs_resources.qrc">
+     <iconset resource="../../../resources/images/frogs_resources.qrc">
       <normaloff>:/files/red_dot.png</normaloff>:/files/red_dot.png</iconset>
     </property>
    </item>
@@ -710,7 +710,7 @@ font: 75 11pt &quot;MS Shell Dlg 2&quot;;</string>
     <number>0</number>
    </property>
    <property name="columnCount">
-    <number>6</number>
+    <number>7</number>
    </property>
    <attribute name="horizontalHeaderVisible">
     <bool>true</bool>
@@ -781,6 +781,11 @@ font: 75 11pt &quot;MS Shell Dlg 2&quot;;</string>
      <string>Priority</string>
     </property>
    </column>
+   <column>
+    <property name="text">
+     <string>uuid</string>
+    </property>
+   </column>
   </widget>
   <zorder>newTaskLabel</zorder>
   <zorder>label_3</zorder>
@@ -804,7 +809,7 @@ font: 75 11pt &quot;MS Shell Dlg 2&quot;;</string>
   <zorder>taskListLabel</zorder>
  </widget>
  <resources>
-  <include location="../../../../resources/frogs_resources.qrc"/>
+  <include location="../../../resources/images/frogs_resources.qrc"/>
  </resources>
  <connections/>
 </ui>

@@ -14,6 +14,7 @@ class MainMenuUi(QtView):
     def __init__(self):
         super().__init__(MainMenuUi.window())
         self.new_task = None
+        self.selected_item = None
         self.all_data = []
         self.repository = FirebaseRepository()
         self.form = MainMenuUi.form()
@@ -110,6 +111,7 @@ class MainMenuUi(QtView):
         self.new_task.task_type = selected_type_text
         self.new_task.priority = selected_priority_text
         self.repository.insert(self.new_task)
+        selected_task_uuid = self.new_task.uuid
 
         message = QMessageBox()
         message.setStyleSheet("""
@@ -142,6 +144,8 @@ class MainMenuUi(QtView):
         task_priority = QTableWidgetItem()
         task_priority.setIcon(selected_priority_icon)
         task_priority.setText(selected_priority_text)
+        task_id = QTableWidgetItem()
+        task_id.setText(selected_task_uuid)
 
         self.tasks_table.setItem(self.tasks_table.rowCount() - 1, 0, task_status)
         self.tasks_table.setItem(self.tasks_table.rowCount() - 1, 1, task_text)
@@ -149,6 +153,8 @@ class MainMenuUi(QtView):
         self.tasks_table.setItem(self.tasks_table.rowCount() - 1, 3, task_time)
         self.tasks_table.setItem(self.tasks_table.rowCount() - 1, 4, task_type)
         self.tasks_table.setItem(self.tasks_table.rowCount() - 1, 5, task_priority)
+        self.tasks_table.setItem(self.tasks_table.rowCount() - 1, 6, task_id)
+
         self.tasks_table.resizeColumnsToContents()
 
         self.button_reset_clicked()
@@ -189,6 +195,9 @@ class MainMenuUi(QtView):
         done_status_button.setIcon(done_icon)
         message.exec_()
         selected_row = self.tasks_table.currentRow()
+
+        print(self.tasks_table.currentItem().whatsThis())
+
         if message.clickedButton() == delete_button:
             self.tasks_table.removeRow(selected_row)
         elif message.clickedButton() == failed_status_button:

@@ -35,7 +35,7 @@ class AppConfigs(metaclass=Singleton):
         self._logger = log_init(self._log_file)
         assert self._logger, "Unable to create the logger: {}".format(str(self._logger))
         self._resource_dir = resource_dir \
-            if resource_dir else os.environ.get('RESOURCE_DIR', "{}/main/resources".format(self._source_root))
+            if resource_dir else os.environ.get('RESOURCE_DIR', "{}/resources".format(self._source_root))
         self._app_properties = Properties(load_dir=self._resource_dir)
 
     def __str__(self):
