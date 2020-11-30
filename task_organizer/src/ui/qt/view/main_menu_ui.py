@@ -54,9 +54,9 @@ class MainMenuUi(QtView):
 
     def data_load(self):
         self.tasks_table.setRowCount(0)
-        self.all_data.clear()
-        self.all_data = self.repository.get()
         if self.all_data is not None:
+            self.all_data.clear()
+            self.all_data = self.repository.get()
             for task in self.all_data:
                 if task['priority'] == 'not important / not urgent':
                     selected_priority_icon = QIcon(":/files/green_dot.png")
