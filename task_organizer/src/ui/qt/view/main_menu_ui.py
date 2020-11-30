@@ -83,6 +83,8 @@ class MainMenuUi(QtView):
                 task_priority = QTableWidgetItem()
                 task_priority.setIcon(selected_priority_icon)
                 task_priority.setText(task['priority'])
+                task_uuid = QTableWidgetItem()
+                task_uuid.setText(task['uuid'])
 
                 self.tasks_table.setItem(self.tasks_table.rowCount() - 1, 0, task_status)
                 self.tasks_table.setItem(self.tasks_table.rowCount() - 1, 1, task_text)
@@ -90,6 +92,7 @@ class MainMenuUi(QtView):
                 self.tasks_table.setItem(self.tasks_table.rowCount() - 1, 3, task_time)
                 self.tasks_table.setItem(self.tasks_table.rowCount() - 1, 4, task_type)
                 self.tasks_table.setItem(self.tasks_table.rowCount() - 1, 5, task_priority)
+                self.tasks_table.setItem(self.tasks_table.rowCount() - 1, 6, task_uuid)
                 self.tasks_table.resizeColumnsToContents()
 
     def button_save_clicked(self):
