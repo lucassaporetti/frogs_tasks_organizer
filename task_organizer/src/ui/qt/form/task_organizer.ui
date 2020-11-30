@@ -468,7 +468,7 @@ font: 75 11pt &quot;MS Shell Dlg 2&quot;;</string>
     </property>
     <property name="icon">
      <iconset resource="../../../resources/images/frogs_resources.qrc">
-      <normaloff>:/files/spirituality_icon.png</normaloff>:/files/spirituality_icon.png</iconset>
+      <normaloff>:/files/spiritual_icon.png</normaloff>:/files/spiritual_icon.png</iconset>
     </property>
    </item>
   </widget>
