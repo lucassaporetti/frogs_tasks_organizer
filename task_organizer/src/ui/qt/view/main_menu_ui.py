@@ -53,8 +53,9 @@ class MainMenuUi(QtView):
         self.timeEdit.setTime(time_now)
 
     def data_load(self):
+        self.tasks_table.setRowCount(0)
+        self.all_data.clear()
         self.all_data = self.repository.get()
-        print(self.all_data)
         if self.all_data is not None:
             for task in self.all_data:
                 if task['priority'] == 'not important / not urgent':
@@ -99,11 +100,7 @@ class MainMenuUi(QtView):
         selected_date = self.dateBox.selectedDate()
         str_selected_date = selected_date.toString('yyyy/MM/dd')
         selected_time = self.timeEdit.text()
-        # selected_priority_index = self.priority_box.currentIndex()
-        # selected_priority_icon = self.priority_box.itemIcon(selected_priority_index)
         selected_priority_text = self.priority_box.currentText()
-        # selected_type_index = self.type_box.currentIndex()
-        # selected_type_icon = self.type_box.itemIcon(selected_type_index)
         selected_type_text = self.type_box.currentText()
 
         self.new_task = self.new_task if self.new_task else Task()
@@ -130,36 +127,6 @@ class MainMenuUi(QtView):
         message.exec_()
 
         self.data_load()
-
-        # status_icon = QIcon(":/files/todo_icon.png")
-        # self.tasks_table.insertRow(self.tasks_table.rowCount())
-        # task_status = QTableWidgetItem()
-        # task_status.setIcon(status_icon)
-        # task_status.setText('To do')
-        # task_text = QTableWidgetItem()
-        # task_text.setText(self.lineEdit.text())
-        # task_date = QTableWidgetItem()
-        # task_date.setText(str_selected_date)
-        # task_time = QTableWidgetItem()
-        # task_time.setText(selected_time)
-        # task_type = QTableWidgetItem()
-        # task_type.setIcon(selected_type_icon)
-        # task_type.setText(selected_type_text)
-        # task_priority = QTableWidgetItem()
-        # task_priority.setIcon(selected_priority_icon)
-        # task_priority.setText(selected_priority_text)
-        # task_id = QTableWidgetItem()
-        # task_id.setText(selected_task_uuid)
-        #
-        # self.tasks_table.setItem(self.tasks_table.rowCount() - 1, 0, task_status)
-        # self.tasks_table.setItem(self.tasks_table.rowCount() - 1, 1, task_text)
-        # self.tasks_table.setItem(self.tasks_table.rowCount() - 1, 2, task_date)
-        # self.tasks_table.setItem(self.tasks_table.rowCount() - 1, 3, task_time)
-        # self.tasks_table.setItem(self.tasks_table.rowCount() - 1, 4, task_type)
-        # self.tasks_table.setItem(self.tasks_table.rowCount() - 1, 5, task_priority)
-        # self.tasks_table.setItem(self.tasks_table.rowCount() - 1, 6, task_id)
-        #
-        # self.tasks_table.resizeColumnsToContents()
 
         self.button_reset_clicked()
 
