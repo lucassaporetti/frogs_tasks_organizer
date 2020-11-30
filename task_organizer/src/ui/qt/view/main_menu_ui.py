@@ -138,9 +138,6 @@ class MainMenuUi(QtView):
         self.lineEdit.setText('')
         self.window.repaint()
 
-    # def button_delete_clicked(self):
-    #
-
     def item_click(self, event):
         message = QMessageBox()
         message.setStyleSheet("""
@@ -165,12 +162,14 @@ class MainMenuUi(QtView):
         todo_status_button.setIcon(todo_icon)
         done_status_button.setIcon(done_icon)
         message.exec_()
-        selected_row = self.tasks_table.currentRow()
 
-        print(self.tasks_table.currentItem().whatsThis())
+        selected_row = self.tasks_table.currentRow()
+        selected_uuid = self.tasks_table.item(selected_row, 6).text()
 
         if message.clickedButton() == delete_button:
             self.tasks_table.removeRow(selected_row)
+            self.repository.delete(selected_uuid)
+
         elif message.clickedButton() == failed_status_button:
             self.tasks_table.item(selected_row, 0).setIcon(failed_icon)
             self.tasks_table.item(selected_row, 0).setText('Failed')

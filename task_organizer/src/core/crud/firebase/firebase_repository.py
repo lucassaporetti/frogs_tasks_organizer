@@ -28,15 +28,15 @@ class FirebaseRepository(CrudRepository):
         self.logger.debug('Inserting firebase entry: UPDATE {} into: {}'.format(data, self.firebase.database_url))
         tasks = self.db.child('tasks').get()
         for task in tasks.each():
-            if task.uuid == data.uuid:
+            if task.uuid == str(data):
                 self.db.child('tasks').update(data)
 
     def delete(self, data):
         self.logger.debug('Inserting firebase entry: DELETE {} into: {}'.format(data, self.firebase.database_url))
-        tasks = self.db.child('tasks').get()
-        for task in tasks.each():
-            if task.uuid == data.uuid:
-                self.db.child('tasks').task.uuid.remove()
+        tasks = self.db.child('tasks').
+        for task in tasks:
+            if task.uuid == str(data):
+                self.db.child('tasks').remove(data)
 
     def get(self):
         self.logger.debug('Inserting firebase entry: GET * into: {}'.format(self.firebase.database_url))
