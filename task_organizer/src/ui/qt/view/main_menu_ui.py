@@ -15,6 +15,7 @@ class MainMenuUi(QtView):
         super().__init__(MainMenuUi.window())
         self.new_task = None
         self.selected_item = None
+        self.today_date = None
         self.all_data = []
         self.repository = FirebaseRepository()
         self.form = MainMenuUi.form()
@@ -27,7 +28,7 @@ class MainMenuUi(QtView):
         self.buttonSave = self.qt.find_button('save_button')
         self.buttonReset = self.qt.find_button('reset_button')
         self.tasks_table = self.qt.find_table_widget('taskTable')
-        self.today_date = None
+
         self.setup_ui()
 
     def setup_ui(self):
@@ -56,9 +57,11 @@ class MainMenuUi(QtView):
 
     def data_load(self):
         self.tasks_table.setRowCount(0)
+
         if self.all_data is not None:
             self.all_data.clear()
             self.all_data = self.repository.get()
+
             for task in self.all_data:
                 if task['priority'] == 'not important / not urgent':
                     selected_priority_icon = QIcon(":/files/green_dot.png")
@@ -68,9 +71,14 @@ class MainMenuUi(QtView):
                     selected_priority_icon = QIcon(":/files/yellow_dot.png")
                 else:
                     selected_priority_icon = QIcon(":/files/red_dot.png")
-                status_icon = QIcon(":/files/{}_icon.png".format(task['status'].lower().strip().replace(" ", "")))
-                selected_type_icon = QIcon(":/files/{}_icon.png".format(task['task_type'].lower().strip().replace(" ", "")))
+
+                status_icon = QIcon(":/files/{}_icon.png".format(task['status']
+                                                                 .lower().strip().replace(" ", "")))
+                selected_type_icon = QIcon(":/files/{}_icon.png".format(task['task_type']
+                                                                        .lower().strip().replace(" ", "")))
+
                 self.tasks_table.insertRow(self.tasks_table.rowCount())
+
                 task_status = QTableWidgetItem()
                 task_status.setIcon(status_icon)
                 task_status.setText(task['status'])
@@ -96,6 +104,7 @@ class MainMenuUi(QtView):
                 self.tasks_table.setItem(self.tasks_table.rowCount() - 1, 4, task_type)
                 self.tasks_table.setItem(self.tasks_table.rowCount() - 1, 5, task_priority)
                 self.tasks_table.setItem(self.tasks_table.rowCount() - 1, 6, task_uuid)
+
                 self.tasks_table.resizeColumnsToContents()
 
     def button_save_clicked(self):
@@ -183,5 +192,7 @@ class MainMenuUi(QtView):
             self.tasks_table.item(selected_row, 0).setIcon(done_icon)
             self.tasks_table.item(selected_row, 0).setText('Done')
             self.repository.update(selected_uuid, 'Done')
+
         self.data_load()
+
         self.tasks_table.resizeColumnsToContents()
