@@ -8,11 +8,11 @@ class CrudRepository(ABC):
         pass
 
     @abstractmethod
-    def update(self, data):
+    def update(self, task_id, new_data):
         pass
 
     @abstractmethod
-    def delete(self, data):
+    def delete(self, task_id):
         pass
 
     @abstractmethod

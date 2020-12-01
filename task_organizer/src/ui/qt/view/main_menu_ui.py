@@ -52,6 +52,8 @@ class MainMenuUi(QtView):
         time_now = QTime.currentTime()
         self.timeEdit.setTime(time_now)
 
+# tem q arrumar o data load quando não há nenhum item na lista ou no firebase::::
+
     def data_load(self):
         self.tasks_table.setRowCount(0)
         if self.all_data is not None:
@@ -169,14 +171,17 @@ class MainMenuUi(QtView):
         if message.clickedButton() == delete_button:
             self.tasks_table.removeRow(selected_row)
             self.repository.delete(selected_uuid)
-
         elif message.clickedButton() == failed_status_button:
             self.tasks_table.item(selected_row, 0).setIcon(failed_icon)
             self.tasks_table.item(selected_row, 0).setText('Failed')
+            self.repository.update(selected_uuid, 'Failed')
         elif message.clickedButton() == todo_status_button:
             self.tasks_table.item(selected_row, 0).setIcon(todo_icon)
             self.tasks_table.item(selected_row, 0).setText('To do')
+            self.repository.update(selected_uuid, 'To do')
         elif message.clickedButton() == done_status_button:
             self.tasks_table.item(selected_row, 0).setIcon(done_icon)
             self.tasks_table.item(selected_row, 0).setText('Done')
+            self.repository.update(selected_uuid, 'Done')
+        self.data_load()
         self.tasks_table.resizeColumnsToContents()
