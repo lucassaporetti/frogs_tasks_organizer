@@ -53,8 +53,6 @@ class MainMenuUi(QtView):
         time_now = QTime.currentTime()
         self.timeEdit.setTime(time_now)
 
-# tem q arrumar o data load quando não há nenhum item na lista ou no firebase::::
-
     def data_load(self):
         self.tasks_table.setRowCount(0)
 
@@ -103,6 +101,8 @@ class MainMenuUi(QtView):
                 self.tasks_table.setItem(self.tasks_table.rowCount() - 1, 4, task_type)
                 self.tasks_table.setItem(self.tasks_table.rowCount() - 1, 5, task_priority)
                 self.tasks_table.setItem(self.tasks_table.rowCount() - 1, 6, task_uuid)
+
+                self.tasks_table.hideColumn(6)
 
                 self.tasks_table.resizeColumnsToContents()
         else:
