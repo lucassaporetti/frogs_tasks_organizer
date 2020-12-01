@@ -16,8 +16,8 @@ class MainMenuUi(QtView):
         self.new_task = None
         self.selected_item = None
         self.today_date = None
-        self.all_data = []
         self.repository = FirebaseRepository()
+        self.all_data = self.repository.all_data
         self.form = MainMenuUi.form()
         self.form.setupUi(self.window)
         self.lineEdit = self.qt.find_line_edit('lineEdit')
@@ -58,10 +58,9 @@ class MainMenuUi(QtView):
     def data_load(self):
         self.tasks_table.setRowCount(0)
 
-        if self.all_data is not None:
-            self.all_data.clear()
-            self.all_data = self.repository.get()
+        self.repository.get()
 
+        if self.all_data is not None:
             for task in self.all_data:
                 if task['priority'] == 'not important / not urgent':
                     selected_priority_icon = QIcon(":/files/green_dot.png")
@@ -106,6 +105,8 @@ class MainMenuUi(QtView):
                 self.tasks_table.setItem(self.tasks_table.rowCount() - 1, 6, task_uuid)
 
                 self.tasks_table.resizeColumnsToContents()
+        else:
+            self.tasks_table.setRowCount(0)
 
     def button_save_clicked(self):
         selected_date = self.dateBox.selectedDate()
