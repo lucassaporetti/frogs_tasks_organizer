@@ -1,4 +1,4 @@
-2020-12-01 14:59:08,668 [MainThread] INFO  main.py::setup(@Line:19) 
+2020-12-01 15:12:17,580 [MainThread] INFO  main.py::setup(@Line:19) 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 AppConfigs
   |-RootDir = /home/lucassaporetti/git_repository/frogs_tasks_organizer/task_organizer/src
@@ -7,25 +7,7 @@ AppConfigs
    \-persistence.repository.type=FILE
    |-persistence.database.type=FILE_STORAGET
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= 
-2020-12-01 14:59:08,788 [MainThread] DEBUG retry.py::from_int(@Line:170) Converted retries value: 3 -> Retry(total=3, connect=None, read=None, redirect=None) 
-2020-12-01 14:59:08,903 [MainThread] DEBUG firebase_repository.py::get(@Line:26) Inserting firebase entry: GET * into: https://frogs-task-organizer-d5e24.firebaseio.com 
-2020-12-01 14:59:08,906 [MainThread] INFO  connectionpool.py::_new_conn(@Line:805) Starting new HTTPS connection (1): frogs-task-organizer-d5e24.firebaseio.com 
-2020-12-01 14:59:09,474 [MainThread] DEBUG connectionpool.py::_make_request(@Line:401) "GET /tasks.json HTTP/1.1" 200 216 
-2020-12-01 14:59:24,410 [MainThread] DEBUG firebase_repository.py::update(@Line:45) Inserting firebase entry: UPDATE status == "Done" where uuid == "832a1903-6cd9-491d-9183-2575b1e8a335" into: https://frogs-task-organizer-d5e24.firebaseio.com 
-2020-12-01 14:59:24,558 [MainThread] DEBUG connectionpool.py::_make_request(@Line:401) "GET /tasks.json HTTP/1.1" 200 216 
-2020-12-01 14:59:24,564 [MainThread] INFO  connectionpool.py::_new_conn(@Line:805) Starting new HTTPS connection (1): frogs-task-organizer-d5e24.firebaseio.com 
-2020-12-01 14:59:25,020 [MainThread] DEBUG connectionpool.py::_make_request(@Line:401) "PATCH /tasks/-MNUSF1II8FrkALjcR4C/.json HTTP/1.1" 200 17 
-2020-12-01 14:59:25,023 [MainThread] DEBUG firebase_repository.py::get(@Line:26) Inserting firebase entry: GET * into: https://frogs-task-organizer-d5e24.firebaseio.com 
-2020-12-01 14:59:25,172 [MainThread] DEBUG connectionpool.py::_make_request(@Line:401) "GET /tasks.json HTTP/1.1" 200 214 
-2020-12-01 14:59:34,306 [MainThread] DEBUG firebase_repository.py::update(@Line:45) Inserting firebase entry: UPDATE status == "To do" where uuid == "832a1903-6cd9-491d-9183-2575b1e8a335" into: https://frogs-task-organizer-d5e24.firebaseio.com 
-2020-12-01 14:59:34,458 [MainThread] DEBUG connectionpool.py::_make_request(@Line:401) "GET /tasks.json HTTP/1.1" 200 214 
-2020-12-01 14:59:34,464 [MainThread] INFO  connectionpool.py::_new_conn(@Line:805) Starting new HTTPS connection (1): frogs-task-organizer-d5e24.firebaseio.com 
-2020-12-01 14:59:34,926 [MainThread] DEBUG connectionpool.py::_make_request(@Line:401) "PATCH /tasks/-MNUSF1II8FrkALjcR4C/.json HTTP/1.1" 200 18 
-2020-12-01 14:59:34,930 [MainThread] DEBUG firebase_repository.py::get(@Line:26) Inserting firebase entry: GET * into: https://frogs-task-organizer-d5e24.firebaseio.com 
-2020-12-01 14:59:35,088 [MainThread] DEBUG connectionpool.py::_make_request(@Line:401) "GET /tasks.json HTTP/1.1" 200 215 
-2020-12-01 14:59:44,157 [MainThread] DEBUG firebase_repository.py::delete(@Line:57) Inserting firebase entry: DELETE task with uuid == "832a1903-6cd9-491d-9183-2575b1e8a335" into: https://frogs-task-organizer-d5e24.firebaseio.com 
-2020-12-01 14:59:44,318 [MainThread] DEBUG connectionpool.py::_make_request(@Line:401) "GET /tasks.json HTTP/1.1" 200 215 
-2020-12-01 14:59:44,322 [MainThread] INFO  connectionpool.py::_new_conn(@Line:805) Starting new HTTPS connection (1): frogs-task-organizer-d5e24.firebaseio.com 
-2020-12-01 14:59:44,798 [MainThread] DEBUG connectionpool.py::_make_request(@Line:401) "DELETE /tasks/-MNUSF1II8FrkALjcR4C/.json HTTP/1.1" 200 4 
-2020-12-01 14:59:44,802 [MainThread] DEBUG firebase_repository.py::get(@Line:26) Inserting firebase entry: GET * into: https://frogs-task-organizer-d5e24.firebaseio.com 
-2020-12-01 14:59:44,957 [MainThread] DEBUG connectionpool.py::_make_request(@Line:401) "GET /tasks.json HTTP/1.1" 200 4 
+2020-12-01 15:12:17,708 [MainThread] DEBUG retry.py::from_int(@Line:170) Converted retries value: 3 -> Retry(total=3, connect=None, read=None, redirect=None) 
+2020-12-01 15:12:17,824 [MainThread] DEBUG firebase_repository.py::get(@Line:26) Inserting firebase entry: GET * into: https://frogs-task-organizer-d5e24.firebaseio.com 
+2020-12-01 15:12:17,827 [MainThread] INFO  connectionpool.py::_new_conn(@Line:805) Starting new HTTPS connection (1): frogs-task-organizer-d5e24.firebaseio.com 
+2020-12-01 15:12:18,506 [MainThread] DEBUG connectionpool.py::_make_request(@Line:401) "GET /tasks.json HTTP/1.1" 200 4 
