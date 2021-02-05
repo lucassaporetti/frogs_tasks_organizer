@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from core.model.entity import Entity
+from src.core.model.entity import Entity
 
 
 class CrudRepository(ABC):
@@ -8,11 +8,11 @@ class CrudRepository(ABC):
         pass
 
     @abstractmethod
-    def update(self, task_id, new_data):
+    def update(self, entity: Entity, data_key, data_value):
         pass
 
     @abstractmethod
-    def delete(self, task_id):
+    def delete(self, entoty: Entity):
         pass
 
     @abstractmethod

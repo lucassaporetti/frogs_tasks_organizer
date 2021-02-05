@@ -1,5 +1,4 @@
 from src.core.config.app_config import log
-from enum import Enum
 from typing import Optional
 
 import requests

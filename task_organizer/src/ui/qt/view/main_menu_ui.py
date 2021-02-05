@@ -3,7 +3,7 @@ from PyQt5 import uic
 from PyQt5.QtCore import QTime, Qt
 from PyQt5.QtWidgets import QMessageBox, QTableWidgetItem
 from PyQt5.QtGui import QIcon, QPixmap
-from core.crud.firebase.firebase_repository import FirebaseRepository
+from src.core.crud.file.file_repository import FileRepository
 from src.ui.qt.view.qt_view import QtView
 from src.core.model.task_model import Task
 
@@ -16,8 +16,7 @@ class MainMenuUi(QtView):
         self.new_task = None
         self.selected_item = None
         self.today_date = None
-        self.repository = FirebaseRepository()
-        self.all_data = self.repository.all_data
+        self.repository = FileRepository(filename='tasks_data')
         self.form = MainMenuUi.form()
         self.form.setupUi(self.window)
         self.lineEdit = self.qt.find_line_edit('lineEdit')
@@ -28,7 +27,6 @@ class MainMenuUi(QtView):
         self.buttonSave = self.qt.find_button('save_button')
         self.buttonReset = self.qt.find_button('reset_button')
         self.tasks_table = self.qt.find_table_widget('taskTable')
-
         self.setup_ui()
 
     def setup_ui(self):
@@ -58,8 +56,8 @@ class MainMenuUi(QtView):
 
         self.repository.get()
 
-        if self.all_data is not None:
-            for task in self.all_data:
+        if len(self.repository.file_db.data) != 0:
+            for task in self.repository.file_db.data:
                 if task['priority'] == 'not important / not urgent':
                     selected_priority_icon = QIcon(":/files/green_dot.png")
                 elif task['priority'] == 'IMPORTANT / not urgent':
@@ -178,21 +176,25 @@ class MainMenuUi(QtView):
         selected_row = self.tasks_table.currentRow()
         selected_uuid = self.tasks_table.item(selected_row, 6).text()
 
-        if message.clickedButton() == delete_button:
-            self.tasks_table.removeRow(selected_row)
-            self.repository.delete(selected_uuid)
-        elif message.clickedButton() == failed_status_button:
-            self.tasks_table.item(selected_row, 0).setIcon(failed_icon)
-            self.tasks_table.item(selected_row, 0).setText('Failed')
-            self.repository.update(selected_uuid, 'Failed')
-        elif message.clickedButton() == todo_status_button:
-            self.tasks_table.item(selected_row, 0).setIcon(todo_icon)
-            self.tasks_table.item(selected_row, 0).setText('To do')
-            self.repository.update(selected_uuid, 'To do')
-        elif message.clickedButton() == done_status_button:
-            self.tasks_table.item(selected_row, 0).setIcon(done_icon)
-            self.tasks_table.item(selected_row, 0).setText('Done')
-            self.repository.update(selected_uuid, 'Done')
+        for task in self.repository.file_db.data:
+            if task['uuid'] == selected_uuid:
+                if message.clickedButton() == delete_button:
+                    self.tasks_table.removeRow(selected_row)
+                    self.repository.delete(task)
+                elif message.clickedButton() == failed_status_button:
+                    self.tasks_table.item(selected_row, 0).setIcon(failed_icon)
+                    self.tasks_table.item(selected_row, 0).setText('Failed')
+                    self.repository.update(task, 'status', 'Failed')
+                elif message.clickedButton() == todo_status_button:
+                    self.tasks_table.item(selected_row, 0).setIcon(todo_icon)
+                    self.tasks_table.item(selected_row, 0).setText('To do')
+                    self.repository.update(task, 'status', 'To do')
+                elif message.clickedButton() == done_status_button:
+                    self.tasks_table.item(selected_row, 0).setIcon(done_icon)
+                    self.tasks_table.item(selected_row, 0).setText('Done')
+                    self.repository.update(task, 'status', 'Done')
+            else:
+                pass
 
         self.data_load()
 

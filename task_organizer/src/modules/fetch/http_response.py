@@ -1,7 +1,7 @@
-from core.enum.charset import Charset
-from core.enum.content_type import ContentType
-from core.enum.http_code import HttpCode
-from core.enum.http_method import HttpMethod
+from src.core.enum.charset import Charset
+from src.core.enum.content_type import ContentType
+from src.core.enum.http_code import HttpCode
+from src.core.enum.http_method import HttpMethod
 from requests.models import Response, CaseInsensitiveDict
 
 

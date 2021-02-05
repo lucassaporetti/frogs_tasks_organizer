@@ -1,12 +1,14 @@
 import re
 import uuid
-from abc import abstractmethod
 from typing import Optional
-
 from src.core.config.app_config import log
 from src.core.crud.file.file_storage import FileStorage
 from src.core.crud.crud_repository import CrudRepository
 from src.core.model.entity import Entity
+
+
+def dict_to_entity(row: dict) -> Entity:
+    return Entity(row[uuid])
 
 
 class FileRepository(CrudRepository):
@@ -29,12 +31,12 @@ class FileRepository(CrudRepository):
         super().__init__()
         self.logger = log
         self.filename = filename
-        self.file_db = self.__create_or_get()
+        self.file_db = self.get()
 
     def __str__(self):
         return str(self.file_db.data)
 
-    def __create_or_get(self):
+    def get(self):
         if self.filename in FileRepository.__storages:
             return FileRepository.__storages[self.filename]
         else:
@@ -47,19 +49,17 @@ class FileRepository(CrudRepository):
         self.file_db.commit()
         self.logger.debug("{} has been inserted !".format(entity.__class__.__name__))
 
-    def update(self, entity: Entity):
-        for index, next_entry in enumerate(self.file_db.data):
-            if next_entry['entity_id'] == entity.uuid:
-                self.file_db.data[index] = entity.to_dict()
-                self.file_db.commit()
-                self.logger.debug("{} has been updated !".format(entity.__class__.__name__))
+    def update(self, entity: Entity, data_key, data_value):
+        print(entity)
+        dict_to_entity()
+        self.file_db.data[entity.data_key] = data_value
+        self.file_db.commit()
+        self.logger.debug("{} has been updated !".format(entity.__class__.__name__))
 
     def delete(self, entity: Entity):
-        for index, next_entry in enumerate(self.file_db.data):
-            if next_entry['entity_id'] == entity.uuid:
-                self.file_db.data.remove(self.file_db.data[index])
-                self.file_db.commit()
-                self.logger.debug("{} has been deleted !".format(entity.__class__.__name__))
+        self.file_db.data.remove(entity)
+        self.file_db.commit()
+        self.logger.debug("{} has been deleted !".format(entity.__class__.__name__))
 
     def find_all(self, filters: str = None) -> Optional[list]:
         if filters is not None:
@@ -69,7 +69,7 @@ class FileRepository(CrudRepository):
                 fields = re.split('=|>|<|>=|<=|==|!=', next_filter)
                 try:
                     found = [
-                        self.dict_to_entity(c) for c in self.file_db.data if
+                        dict_to_entity(c) for c in self.file_db.data if
                         self.check_criteria(fields[1], c[fields[0]])
                     ]
                 except KeyError:
@@ -79,7 +79,7 @@ class FileRepository(CrudRepository):
                 filtered.extend(found)
             return filtered
         else:
-            return [self.dict_to_entity(c) for c in self.file_db.data]
+            return [dict_to_entity(c) for c in self.file_db.data]
 
     def find_by_id(self, entity_id: str) -> Optional[Entity]:
         if entity_id:
@@ -88,14 +88,11 @@ class FileRepository(CrudRepository):
         else:
             return None
 
-    @abstractmethod
-    def dict_to_entity(self, row: dict) -> Entity:
-        pass
+    # @abstractmethod
+    # def dict_to_entity(self, row: dict) -> Entity:
+    #     pass
 
-
-class MyRepo(FileRepository):
-    def __init__(self, filename: str):
-        super().__init__(filename)
-
-    def dict_to_entity(self, row: dict) -> Entity:
-        return Entity(row[uuid])
+# class MyRepo(FileRepository, ABC):
+#     def __init__(self, filename: str):
+#         super().__init__(filename)
+    #

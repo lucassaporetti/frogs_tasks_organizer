@@ -19,6 +19,7 @@ class FileStorage:
             if lines:
                 saved_data = ast.literal_eval(lines)
                 self.data = saved_data
+            return self.data
 
     def commit(self):
         with open(self.filename, 'w') as f_local_db:
@@ -27,4 +28,4 @@ class FileStorage:
 
     def truncate(self):
         open(self.filename, 'w').close()
-        self.logger.warn('File storage filename={} was truncated'.format(self.filename))
+        self.logger.warning('File storage filename={} was truncated'.format(self.filename))

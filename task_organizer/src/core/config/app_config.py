@@ -3,9 +3,9 @@ from re import sub
 from typing import Optional
 import logging as log
 
-from core.config.properties import Properties
-from core.meta.singleton import Singleton
-from core.tools.commons import log_init
+from src.core.config.properties import Properties
+from src.core.meta.singleton import Singleton
+from src.core.tools.commons import log_init
 
 APP_CONFIG_FORMAT = """
 AppConfigs

@@ -1,9 +1,9 @@
 from typing import Optional
 
 import requests
-from core.enum.http_method import HttpMethod
-from modules.fetch.http_response import HttpResponse
-from core.tools.commons import sysout
+from src.core.enum.http_method import HttpMethod
+from src.modules.fetch.http_response import HttpResponse
+from src.core.tools.commons import sysout
 
 
 # @purpose: Do a request specified by method and according to parameters.

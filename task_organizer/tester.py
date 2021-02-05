@@ -24,11 +24,11 @@
 #     ]
 #     tr = TableRenderer(h, data, 'TableRenderer example of usage')
 #     tr.render()
-import requests
-
-url = 'http://127.0.0.1:8000/tasks/'
-
-data = {"uuid": "0309799d-67c8-427b-9359-0817c6e30a7d", "status": "To do", "name": "foiiiiiiiiiiiiiiiiiiiiiiii", "date": "2020/11/10", "time": "23:20", "task_type": "Business", "priority": "IMPORTANT / URGENT"}
-
-response = requests.post(url=url, json=data)
-print(response.status_code, response.reason)
+# import requests
+#
+# url = 'http://127.0.0.1:8000/tasks/'
+#
+# data = {"uuid": "0309799d-67c8-427b-9359-0817c6e30a7d", "status": "To do", "name": "foiiiiiiiiiiiiiiiiiiiiiiii", "date": "2020/11/10", "time": "23:20", "task_type": "Business", "priority": "IMPORTANT / URGENT"}
+#
+# response = requests.post(url=url, json=data)
+# print(response.status_code, response.reason)
