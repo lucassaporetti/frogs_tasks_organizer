@@ -14,7 +14,7 @@ class CrudRepository(ABC):
         pass
 
     @abstractmethod
-    def update(self, entity: Entity):
+    def update(self, entity, selected_entity_id, *new_entity_values):
         pass
 
     @abstractmethod

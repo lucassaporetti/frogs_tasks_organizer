@@ -1,4 +1,4 @@
-2021-02-04 21:54:27,497 [MainThread] INFO  main.py::setup(@Line:19) 
+2021-02-05 13:59:13,336 [MainThread] INFO  main.py::setup(@Line:19) 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 AppConfigs
   |-RootDir = /home/lucassaporetti/git_repository/frogs_tasks_organizer/task_organizer/src
@@ -7,10 +7,10 @@ AppConfigs
    \-persistence.repository.type=FILE
    |-persistence.database.type=FILE_STORAGE
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= 
-2021-02-04 21:54:29,019 [MainThread] DEBUG file_storage.py::__init__(@Line:13) File storage filename=tasks_data created and loaded entries=2 
-2021-02-04 21:54:50,967 [MainThread] DEBUG file_storage.py::commit(@Line:27) File storage filename=tasks_data committed entries=1 
-2021-02-04 21:54:50,968 [MainThread] DEBUG file_repository.py::delete(@Line:62) dict has been deleted ! 
-2021-02-04 21:55:14,196 [MainThread] DEBUG file_storage.py::commit(@Line:27) File storage filename=tasks_data committed entries=2 
-2021-02-04 21:55:14,196 [MainThread] DEBUG file_repository.py::insert(@Line:50) Task has been inserted ! 
-2021-02-04 21:56:07,686 [MainThread] DEBUG file_storage.py::commit(@Line:27) File storage filename=tasks_data committed entries=1 
-2021-02-04 21:56:07,686 [MainThread] DEBUG file_repository.py::delete(@Line:62) dict has been deleted ! 
+2021-02-05 13:59:13,484 [MainThread] DEBUG file_storage.py::__init__(@Line:13) File storage filename=tasks_data created and loaded entries=1 
+2021-02-05 13:59:16,154 [MainThread] DEBUG file_storage.py::commit(@Line:27) File storage filename=tasks_data committed entries=1 
+2021-02-05 13:59:16,154 [MainThread] DEBUG file_repository.py::update(@Line:53) dict has been updated ! 
+2021-02-05 13:59:19,145 [MainThread] DEBUG file_storage.py::commit(@Line:27) File storage filename=tasks_data committed entries=1 
+2021-02-05 13:59:19,145 [MainThread] DEBUG file_repository.py::update(@Line:53) dict has been updated ! 
+2021-02-05 13:59:20,741 [MainThread] DEBUG file_storage.py::commit(@Line:27) File storage filename=tasks_data committed entries=1 
+2021-02-05 13:59:20,741 [MainThread] DEBUG file_repository.py::update(@Line:53) dict has been updated ! 

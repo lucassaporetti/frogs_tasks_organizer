@@ -45,10 +45,10 @@ class FileRepository(CrudRepository):
             FileRepository.__storages[self.filename] = FileStorage(self.filename)
             return FileRepository.__storages[self.filename]
 
-    def update(self, entity: Entity):
-        print(entity)
-        self.dict_to_entity()
-        self.file_db.data[entity.data_key] = data_value
+    def update(self, entity, selected_entity_id, *new_entity_values):
+        for entity in self.file_db.data:
+            if entity['uuid'] == selected_entity_id:
+                print(entity)
         self.file_db.commit()
         self.logger.debug("{} has been updated !".format(entity.__class__.__name__))
 
@@ -61,11 +61,11 @@ class FileRepository(CrudRepository):
         return Entity(row[uuid])
 
     def find_by_id(self, entity_id: str) -> Optional[Entity]:
-        if entity_id:
-            result = [some_entity for some_entity in self.file_db.data if entity_id == some_entity['uuid']]
-            return result if len(result) > 0 else None
-        else:
-            return None
+        for entity in self.file_db.data:
+            if entity_id == entity['uuid']:
+                return entity if len(self.file_db.data) > 0 else None
+            else:
+                return None
 
     def find_all(self, filters: str = None) -> Optional[list]:
         if filters is not None:
