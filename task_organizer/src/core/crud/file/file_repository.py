@@ -7,10 +7,6 @@ from src.core.crud.crud_repository import CrudRepository
 from src.core.model.entity import Entity
 
 
-def dict_to_entity(row: dict) -> Entity:
-    return Entity(row[uuid])
-
-
 class FileRepository(CrudRepository):
     __storages = {}
 
@@ -31,27 +27,27 @@ class FileRepository(CrudRepository):
         super().__init__()
         self.logger = log
         self.filename = filename
-        self.file_db = self.get()
+        self.file_db = self.read()
 
     def __str__(self):
         return str(self.file_db.data)
 
-    def get(self):
+    def create(self, entity: Entity):
+        entity.uuid = str(uuid.uuid4())
+        self.file_db.data.append(entity.to_json())
+        self.file_db.commit()
+        self.logger.debug("{} has been inserted !".format(entity.__class__.__name__))
+
+    def read(self):
         if self.filename in FileRepository.__storages:
             return FileRepository.__storages[self.filename]
         else:
             FileRepository.__storages[self.filename] = FileStorage(self.filename)
             return FileRepository.__storages[self.filename]
 
-    def insert(self, entity: Entity):
-        entity.uuid = str(uuid.uuid4())
-        self.file_db.data.append(entity.to_json())
-        self.file_db.commit()
-        self.logger.debug("{} has been inserted !".format(entity.__class__.__name__))
-
-    def update(self, entity: Entity, data_key, data_value):
+    def update(self, entity: Entity):
         print(entity)
-        dict_to_entity()
+        self.dict_to_entity()
         self.file_db.data[entity.data_key] = data_value
         self.file_db.commit()
         self.logger.debug("{} has been updated !".format(entity.__class__.__name__))
@@ -61,6 +57,16 @@ class FileRepository(CrudRepository):
         self.file_db.commit()
         self.logger.debug("{} has been deleted !".format(entity.__class__.__name__))
 
+    def dict_to_entity(self, row: dict) -> Entity:
+        return Entity(row[uuid])
+
+    def find_by_id(self, entity_id: str) -> Optional[Entity]:
+        if entity_id:
+            result = [some_entity for some_entity in self.file_db.data if entity_id == some_entity['uuid']]
+            return result if len(result) > 0 else None
+        else:
+            return None
+
     def find_all(self, filters: str = None) -> Optional[list]:
         if filters is not None:
             file_filters = filters.split(',')
@@ -69,8 +75,8 @@ class FileRepository(CrudRepository):
                 fields = re.split('=|>|<|>=|<=|==|!=', next_filter)
                 try:
                     found = [
-                        dict_to_entity(c) for c in self.file_db.data if
-                        self.check_criteria(fields[1], c[fields[0]])
+                        self.dict_to_entity(some_entity) for some_entity in self.file_db.data if
+                        self.check_criteria(fields[1], some_entity[fields[0]])
                     ]
                 except KeyError:
                     continue
@@ -79,20 +85,4 @@ class FileRepository(CrudRepository):
                 filtered.extend(found)
             return filtered
         else:
-            return [dict_to_entity(c) for c in self.file_db.data]
-
-    def find_by_id(self, entity_id: str) -> Optional[Entity]:
-        if entity_id:
-            result = [c for c in self.file_db.data if entity_id == c['entity_id']]
-            return result if len(result) > 0 else None
-        else:
-            return None
-
-    # @abstractmethod
-    # def dict_to_entity(self, row: dict) -> Entity:
-    #     pass
-
-# class MyRepo(FileRepository, ABC):
-#     def __init__(self, filename: str):
-#         super().__init__(filename)
-    #
+            return [self.dict_to_entity(some_entity) for some_entity in self.file_db.data]

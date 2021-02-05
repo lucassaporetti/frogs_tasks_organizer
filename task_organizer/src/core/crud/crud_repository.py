@@ -1,20 +1,34 @@
 from abc import ABC, abstractmethod
+from typing import Optional
 from src.core.model.entity import Entity
 
 
 class CrudRepository(ABC):
+
     @abstractmethod
-    def insert(self, entity: Entity):
+    def create(self, entity: Entity):
         pass
 
     @abstractmethod
-    def update(self, entity: Entity, data_key, data_value):
+    def read(self):
         pass
 
     @abstractmethod
-    def delete(self, entoty: Entity):
+    def update(self, entity: Entity):
         pass
 
     @abstractmethod
-    def get(self):
+    def delete(self, entity: Entity):
+        pass
+
+    @abstractmethod
+    def dict_to_entity(self, row: dict) -> Entity:
+        pass
+
+    @abstractmethod
+    def find_by_id(self, entity_id: str) -> Optional[Entity]:
+        pass
+
+    @abstractmethod
+    def find_all(self, filters: str = None) -> Optional[list]:
         pass
