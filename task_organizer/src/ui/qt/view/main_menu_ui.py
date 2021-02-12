@@ -177,11 +177,9 @@ class MainMenuUi(QtView):
         selected_row = self.tasks_table.currentRow()
         selected_uuid = self.tasks_table.item(selected_row, 6).text()
 
-        selected_task = self.repository.find_by_id(entity_id=selected_uuid)
-
         if message.clickedButton() == delete_button:
             self.tasks_table.removeRow(selected_row)
-            self.repository.delete(entity=selected_task)
+            self.repository.delete(selected_entity_id=selected_uuid)
 
         elif message.clickedButton() == failed_status_button:
             self.repository.update(selected_entity_id=selected_uuid,

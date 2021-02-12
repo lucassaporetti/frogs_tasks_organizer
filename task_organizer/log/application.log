@@ -1,4 +1,4 @@
-2021-02-12 00:51:57,082 [MainThread] INFO  main.py::setup(@Line:19) 
+2021-02-12 01:14:27,548 [MainThread] INFO  main.py::setup(@Line:19) 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 AppConfigs
   |-RootDir = /home/lucassaporetti/git_repository/frogs_tasks_organizer/task_organizer/src
@@ -7,4 +7,6 @@ AppConfigs
    \-persistence.repository.type=FILE
    |-persistence.database.type=FILE_STORAGE
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= 
-2021-02-12 00:51:57,217 [MainThread] DEBUG file_storage.py::__init__(@Line:13) File storage filename=tasks_data created and loaded entries=3 
+2021-02-12 01:14:27,683 [MainThread] DEBUG file_storage.py::__init__(@Line:13) File storage filename=tasks_data created and loaded entries=1 
+2021-02-12 01:14:29,576 [MainThread] DEBUG file_storage.py::commit(@Line:27) File storage filename=tasks_data committed entries=0 
+2021-02-12 01:14:29,576 [MainThread] DEBUG file_repository.py::delete(@Line:45) Task 1af91295-7887-4868-a8b4-0cc474258e16 has been deleted ! 

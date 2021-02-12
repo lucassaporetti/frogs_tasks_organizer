@@ -20,15 +20,3 @@ class CrudRepository(ABC):
     @abstractmethod
     def delete(self, entity: Entity):
         pass
-
-    @abstractmethod
-    def dict_to_entity(self, row: dict) -> Entity:
-        pass
-
-    @abstractmethod
-    def find_by_id(self, entity_id: str) -> Optional[Entity]:
-        pass
-
-    @abstractmethod
-    def find_all(self, filters: str = None) -> Optional[list]:
-        pass
