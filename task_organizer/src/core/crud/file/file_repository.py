@@ -45,14 +45,15 @@ class FileRepository(CrudRepository):
             FileRepository.__storages[self.filename] = FileStorage(self.filename)
             return FileRepository.__storages[self.filename]
 
-    def update(self, entity, selected_entity_id, *new_entity_values):
+    def update(self, selected_entity_id, key_to_update, new_entity_value):
         for entity in self.file_db.data:
             if entity['uuid'] == selected_entity_id:
-                print(entity)
-        self.file_db.commit()
-        self.logger.debug("{} has been updated !".format(entity.__class__.__name__))
+                entity[str('{}'.format(key_to_update))] = str('{}'.format(new_entity_value))
+                self.file_db.commit()
+                self.logger.debug("{} has been updated !".format(entity.__class__.__name__))
 
     def delete(self, entity: Entity):
+        print(entity)
         self.file_db.data.remove(entity)
         self.file_db.commit()
         self.logger.debug("{} has been deleted !".format(entity.__class__.__name__))

@@ -184,19 +184,16 @@ class MainMenuUi(QtView):
             self.repository.delete(entity=selected_task)
 
         elif message.clickedButton() == failed_status_button:
-            self.tasks_table.item(selected_row, 0).setIcon(failed_icon)
-            self.tasks_table.item(selected_row, 0).setText('Failed')
-            self.repository.update(entity=selected_task, selected_entity_id=selected_uuid)
+            self.repository.update(selected_entity_id=selected_uuid,
+                                   key_to_update='status', new_entity_value='Failed')
 
         elif message.clickedButton() == todo_status_button:
-            self.tasks_table.item(selected_row, 0).setIcon(todo_icon)
-            self.tasks_table.item(selected_row, 0).setText('To do')
-            self.repository.update(entity=selected_task, selected_entity_id=selected_uuid)
+            self.repository.update(selected_entity_id=selected_uuid,
+                                   key_to_update='status', new_entity_value='To do')
 
         elif message.clickedButton() == done_status_button:
-            self.tasks_table.item(selected_row, 0).setIcon(done_icon)
-            self.tasks_table.item(selected_row, 0).setText('Done')
-            self.repository.update(entity=selected_task, selected_entity_id=selected_uuid)
+            self.repository.update(selected_entity_id=selected_uuid,
+                                   key_to_update='status', new_entity_value='Done')
 
         else:
             pass
